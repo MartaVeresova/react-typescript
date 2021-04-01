@@ -9,3 +9,8 @@
     grid-template-columns: 2fr 10fr;
     gap: 10px;
 }
+
+.appWrapperContent {
+    grid-area: c;
+    background-color: skyblue;
+}

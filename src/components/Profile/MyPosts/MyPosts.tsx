@@ -13,10 +13,9 @@ export function MyPosts() {
             </div>
 
             <div>
-                <Post/>
-                <Post/>
-                <Post/>
-                <Post/>
+                <Post message='Hello' likesCount='11'/>
+                <Post message='Buy' likesCount='15'/>
+
             </div>
         </div>
     )
