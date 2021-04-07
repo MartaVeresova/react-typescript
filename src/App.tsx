@@ -16,6 +16,7 @@ function App() {
             <div className={s.appWrapperContent}>
                 {/*<Profile/>*/}
                 <Dialogues/>
+
             </div>
         </div>
     )
