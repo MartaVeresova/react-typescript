@@ -5,10 +5,10 @@ export function Navbar() {
     return (
         <div className={s.nav}>
             <div className={s.item}>
-                <a>Profile</a>
+                <a href='/profile'>Profile</a>
             </div>
             <div className={`${s.item} ${s.active}`}>
-                <a>Messages</a>
+                <a href='/dialogues'>Messages</a>
             </div>
             <div className={s.item}>
                 <a>News</a>
