@@ -1,3 +1,25 @@
 .dialogues {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
     padding: 20px;
+}
+
+.dialoguesItem {
+
+}
+
+.item {
+
+}
+
+.item.active {
+    color: chocolate;
+}
+
+.messages {
+
+}
+
+.message {
+
 }
