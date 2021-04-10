@@ -4,7 +4,7 @@ import s from './Dialogues.module.css'
 
 export function Dialogues() {
     return (
-        <div>
+        <div className={s.dialogues}>
             Dialogues
         </div>
     )
