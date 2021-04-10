@@ -8,11 +8,11 @@
 
 }
 
-.item {
-
+.item a {
+    text-decoration: none;
 }
 
-.item.active {
+.item a.activeLink {
     color: chocolate;
 }
 
