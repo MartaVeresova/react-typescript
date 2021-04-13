@@ -2,6 +2,14 @@ import React from 'react'
 import {Post} from './Post/Post'
 import s from './MyPosts.module.css'
 
+
+const postsData = [
+    {id: 1, message: 'Hello', likesCount: '11'},
+    {id: 1, message: 'Buy', likesCount: '15'},
+]
+
+const postsElements = postsData.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+
 export function MyPosts() {
     return (
         <div className={s.myPosts}>
@@ -16,8 +24,7 @@ export function MyPosts() {
             </div>
 
             <div>
-                <Post message="Hello" likesCount="11"/>
-                <Post message="Buy" likesCount="15"/>
+                {postsElements}
             </div>
         </div>
     )
