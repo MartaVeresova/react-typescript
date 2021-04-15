@@ -4,13 +4,14 @@ import s from './MyPosts.module.css'
 
 
 const postsData = [
-    {id: 1, message: 'Hello', likesCount: '11'},
-    {id: 1, message: 'Buy', likesCount: '15'},
+    {id: 1, message: 'Hello', likesCount: 11},
+    {id: 1, message: 'Buy', likesCount: 15},
 ]
 
-const postsElements = postsData.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-
 export function MyPosts() {
+
+    const postsElements = postsData.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>

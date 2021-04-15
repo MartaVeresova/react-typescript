@@ -16,11 +16,12 @@ const messagesData = [
     {id: 2, messageContent: 'How are you?'},
     {id: 3, messageContent: 'Yo'},
 ]
-const dialoguesElements = dialoguesData.map(d => <DialogItem name={d.name} id={d.id}/>)
-const messagesElements = messagesData.map(m => <Message messageContent={m.messageContent}/>)
-
 
 export function Dialogues() {
+
+    const dialoguesElements = dialoguesData.map(d => <DialogItem name={d.name} id={d.id}/>)
+    const messagesElements = messagesData.map(m => <Message messageContent={m.messageContent}/>)
+
     return (
         <div className={s.dialogues}>
 
