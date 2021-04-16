@@ -4,7 +4,7 @@ import s from './DialogItem.module.css'
 
 
 export type DialogItemPropsType = {
-    id: number
+    id: string
     name: string
 }
 

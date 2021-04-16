@@ -3,7 +3,7 @@ import s from './Message.module.css'
 
 
 export type MessageItemPropsType = {
-    id?: number
+    id?: string
     messageContent: string
 }
 

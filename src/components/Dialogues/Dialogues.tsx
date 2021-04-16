@@ -1,26 +1,17 @@
 import React from 'react';
 import s from './Dialogues.module.css'
-import {Message} from './Message/Message';
-import {DialogItem} from './DialogItem/DialogItem';
+import {Message, MessageItemPropsType} from './Message/Message';
+import {DialogItem, DialogItemPropsType} from './DialogItem/DialogItem';
 
+type DialoguesPropsType = {
+    dialoguesData: Array<DialogItemPropsType>
+    messagesData: Array<MessageItemPropsType>
+}
 
-const dialoguesData = [
-    {id: 1, name: 'Marta'},
-    {id: 2, name: 'Sasha'},
-    {id: 3, name: 'Vera'},
-    {id: 4, name: 'Anton'},
-    {id: 5, name: 'Vanya'},
-]
-const messagesData = [
-    {id: 1, messageContent: 'Hello'},
-    {id: 2, messageContent: 'How are you?'},
-    {id: 3, messageContent: 'Yo'},
-]
+export function Dialogues(props: DialoguesPropsType) {
 
-export function Dialogues() {
-
-    const dialoguesElements = dialoguesData.map(d => <DialogItem name={d.name} id={d.id}/>)
-    const messagesElements = messagesData.map(m => <Message messageContent={m.messageContent}/>)
+    const dialoguesElements = props.dialoguesData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesElements = props.messagesData.map(m => <Message key={m.id} messageContent={m.messageContent}/>)
 
     return (
         <div className={s.dialogues}>
