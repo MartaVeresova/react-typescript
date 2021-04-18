@@ -1,13 +1,31 @@
 import {v1} from 'uuid';
-import {ProfilePagePropsType} from '../components/Profile/Profile';
-import {DialoguesPagePropsType} from '../components/Dialogues/Dialogues';
 
 
-export type SidebarPageType = {}
 export type RootStateType = {
-    profilePage: ProfilePagePropsType
-    dialoguesPage: DialoguesPagePropsType
+    profilePage: ProfilePageType
+    dialoguesPage: DialoguesPageType
     sidebar: SidebarPageType
+}
+export type SidebarPageType = {}
+export type ProfilePageType = {
+    postsData: Array<PostType>
+}
+export type PostType = {
+    id?: string
+    message: string
+    likesCount: number
+}
+export type DialoguesPageType = {
+    dialoguesData: Array<DialogItemType>
+    messagesData: Array<MessageItemType>
+}
+export type MessageItemType = {
+    id?: string
+    messageContent: string
+}
+export type DialogItemType = {
+    id: string
+    name: string
 }
 
 

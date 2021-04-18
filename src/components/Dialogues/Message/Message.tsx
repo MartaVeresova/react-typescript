@@ -1,13 +1,9 @@
 import React from 'react'
 import s from './Message.module.css'
+import {MessageItemType} from '../../../redux/state';
 
 
-export type MessageItemPropsType = {
-    id?: string
-    messageContent: string
-}
-
-export function Message(props: MessageItemPropsType) {
+export function Message(props: MessageItemType) {
     return (
         <div className={s.message}>{props.messageContent}</div>
     )

@@ -5,3 +5,9 @@
 .item a.activeLink {
     color: chocolate;
 }
+
+.item img {
+    width: 40%;
+    height: 50%;
+    border-radius: 50%;
+}
