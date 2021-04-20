@@ -11,9 +11,9 @@ import {Route} from 'react-router-dom'
 import {RootStateType} from './redux/state';
 
 
-
 export type AppPropsType = {
     appState: RootStateType
+    addPost: (postText: string) => void
 }
 
 
@@ -24,7 +24,8 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className={s.appWrapperContent}>
                 <Route exact path={'/profile'} render={() => <Profile
-                    stateData={props.appState.profilePage}/>}/>
+                    stateData={props.appState.profilePage}
+                    addPost={props.addPost}/>}/>
                 <Route exact path={'/dialogs'} render={() => <Dialogs
                     stateData={props.appState.dialogsPage}/>}/>
                 <Route exact path="/news" render={() => <News/>}/>

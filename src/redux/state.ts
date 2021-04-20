@@ -5,8 +5,10 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     sidebar: SidebarPageType
+
 }
 export type SidebarPageType = {}
+
 export type ProfilePageType = {
     postsData: Array<PostType>
 }
@@ -52,4 +54,15 @@ let state: RootStateType = {
     },
     sidebar: {}
 }
+
+export const addPost = (postText: string) => {
+    let newPost: PostType = {
+        id: v1(),
+        message: postText,
+        likesCount: 0
+    }
+    state.profilePage.postsData.push(newPost)
+}
+
+
 export default state
