@@ -3,7 +3,7 @@ import {v1} from 'uuid';
 
 export type RootStateType = {
     profilePage: ProfilePageType
-    dialoguesPage: DialoguesPageType
+    dialogsPage: DialogsPageType
     sidebar: SidebarPageType
 }
 export type SidebarPageType = {}
@@ -15,8 +15,8 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type DialoguesPageType = {
-    dialoguesData: Array<DialogItemType>
+export type DialogsPageType = {
+    dialogsData: Array<DialogItemType>
     messagesData: Array<MessageItemType>
 }
 export type MessageItemType = {
@@ -36,8 +36,8 @@ let state: RootStateType = {
             {id: v1(), message: 'Buy', likesCount: 15},
         ]
     },
-    dialoguesPage: {
-        dialoguesData: [
+    dialogsPage: {
+        dialogsData: [
             {id: v1(), name: 'Marta'},
             {id: v1(), name: 'Sasha'},
             {id: v1(), name: 'Vera'},

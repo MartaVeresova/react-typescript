@@ -4,6 +4,7 @@ import {MessageItemType} from '../../../redux/state';
 
 
 export function Message(props: MessageItemType) {
+
     return (
         <div className={s.message}>{props.messageContent}</div>
     )
