@@ -1,10 +1,7 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import s from './DialogItem.module.css'
 import {DialogItemType} from '../../../redux/state';
-
-
-
 
 
 export function DialogItem(props: DialogItemType) {
@@ -13,7 +10,7 @@ export function DialogItem(props: DialogItemType) {
     return (
         <div className={`${s.item} ${s.activeLink}`}>
             <NavLink to={path}>
-                <img src='https://upload-98195c5cfe1b3157dfd8c174dd0b71f2.commondatastorage.googleapis.com/iblock/b2b/b2b1c46e9ee3831adb2a3573c2e69e92.jpg' />
+                <img src="https://avatars.mds.yandex.net/get-pdb/1025945/a6f96698-c78d-44fb-b802-38e74e0164dd/s1200"/>
                 {props.name}
             </NavLink>
         </div>

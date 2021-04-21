@@ -2,21 +2,36 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
-import {DialogsPageType} from '../../redux/state';
+import {addMessage, DialogsPageType} from '../../redux/state';
 
 
 export type DialogsPropsType = {
-    stateData: DialogsPageType
+    stateDialogsPage: DialogsPageType
+    addMessage: (messageText: string) => void
+    updateNewMessageText: (newText: string) => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
 
-    const dialogsElements = props.stateData.dialogsData.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
-    const messagesElements = props.stateData.messagesData.map(m => <Message key={m.id} messageContent={m.messageContent}/>)
+    const dialogsElements = props.stateDialogsPage.dialogsData.map(d => <DialogItem
+        key={d.id} name={d.name}
+        id={d.id}/>)
+    const messagesElements = props.stateDialogsPage.messagesData.map(m => <Message
+        key={m.id}
+        messageContent={m.messageContent}/>)
 
-    const newMessageElement  = React.createRef<HTMLTextAreaElement>()
+    const newMessageElement = React.createRef<HTMLTextAreaElement>()
     const onClickAddMessage = () => {
-        alert(newMessageElement.current?.value)
+        if (newMessageElement.current) {
+            const text = newMessageElement.current?.value
+            addMessage(text)
+        }
+    }
+    const onChangeMessage = () => {
+        if (newMessageElement.current) {
+            const text = newMessageElement.current?.value
+            props.updateNewMessageText(text)
+        }
     }
 
     return (
@@ -29,7 +44,12 @@ export function Dialogs(props: DialogsPropsType) {
             <div className={s.messagesItem}>
                 {messagesElements}
                 <div>
-                    <textarea className={s.textarea} ref={newMessageElement}></textarea>
+                    <textarea
+                        className={s.textarea}
+                        ref={newMessageElement}
+                        value={props.stateDialogsPage.newMessageText}
+                        onChange={onChangeMessage}
+                    />
                 </div>
                 <div>
                     <button onClick={onClickAddMessage}>Add message</button>
