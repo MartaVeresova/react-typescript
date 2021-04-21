@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
@@ -12,7 +12,6 @@ export type DialogsPropsType = {
 }
 
 export function Dialogs(props: DialogsPropsType) {
-
     const dialogsElements = props.stateDialogsPage.dialogsData.map(d => <DialogItem
         key={d.id} name={d.name}
         id={d.id}/>)
@@ -20,18 +19,11 @@ export function Dialogs(props: DialogsPropsType) {
         key={m.id}
         messageContent={m.messageContent}/>)
 
-    const newMessageElement = React.createRef<HTMLTextAreaElement>()
     const onClickAddMessage = () => {
-        if (newMessageElement.current) {
-            const text = newMessageElement.current?.value
-            addMessage(text)
-        }
+        props.addMessage(props.stateDialogsPage.newMessageText)
     }
-    const onChangeMessage = () => {
-        if (newMessageElement.current) {
-            const text = newMessageElement.current?.value
-            props.updateNewMessageText(text)
-        }
+    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewMessageText(e.currentTarget.value)
     }
 
     return (
@@ -46,9 +38,8 @@ export function Dialogs(props: DialogsPropsType) {
                 <div>
                     <textarea
                         className={s.textarea}
-                        ref={newMessageElement}
-                        value={props.stateDialogsPage.newMessageText}
                         onChange={onChangeMessage}
+                        value={props.stateDialogsPage.newMessageText}
                     />
                 </div>
                 <div>
