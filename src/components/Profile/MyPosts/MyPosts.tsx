@@ -13,6 +13,7 @@ export function MyPosts(props: PropsType) {
     const postsElements = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     const onClickAddPost = () => {
+        debugger
         props.addPost(props.newPostText)
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
