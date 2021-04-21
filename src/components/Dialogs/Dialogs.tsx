@@ -22,6 +22,7 @@ export function Dialogs(props: DialogsPropsType) {
     const onClickAddMessage = () => {
         props.addMessage(props.stateDialogsPage.newMessageText)
     }
+
     const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewMessageText(e.currentTarget.value)
     }
