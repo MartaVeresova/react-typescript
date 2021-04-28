@@ -1,6 +1,8 @@
 import {v1} from 'uuid';
-import {rerenderEntireTree} from '../render';
 
+let rerenderEntireTree = () => {
+    console.log('state changed')
+}
 
 export type RootStateType = {
     profilePage: ProfilePageType
@@ -9,7 +11,6 @@ export type RootStateType = {
 
 }
 export type SidebarPageType = {}
-
 export type ProfilePageType = {
     postsData: Array<PostType>
     newPostText: string
@@ -34,7 +35,7 @@ export type DialogItemType = {
 }
 
 
-let state: RootStateType = {
+export let state: RootStateType = {
     profilePage: {
         postsData: [
             {id: v1(), message: 'Hello', likesCount: 11},
@@ -60,33 +61,37 @@ let state: RootStateType = {
     sidebar: {}
 }
 
-export const addPost = (postText: string) => {
+export const addPost = () => {
     let newPost: PostType = {
         id: v1(),
-        message: postText,
+        message: state.profilePage.newPostText,
         likesCount: 0,
     }
     state.profilePage.postsData.push(newPost)
-    rerenderEntireTree(state)
+    state.profilePage.newPostText = ''
+    rerenderEntireTree()
 }
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 
-export const addMessage = (messageText: string) => {
+export const addMessage = () => {
     const newMessage = {
         id: v1(),
-        messageContent: messageText,
+        messageContent: state.dialogsPage.newMessageText,
     }
     state.dialogsPage.messagesData.push(newMessage)
-    rerenderEntireTree(state)
+    state.dialogsPage.newMessageText = ''
+    rerenderEntireTree()
 }
 export const updateNewMessageText = (newNext: string) => {
     state.dialogsPage.newMessageText = newNext
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer
+}
 
-export default state

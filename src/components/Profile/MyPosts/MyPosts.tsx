@@ -4,7 +4,7 @@ import s from './MyPosts.module.css'
 import {ProfilePageType, updateNewPostText} from '../../../redux/state';
 
 type PropsType = ProfilePageType & {
-    addPost: (postText: string) => void
+    addPost: () => void
     updateNewPostText: (newText: string | '') => void
 }
 
@@ -13,8 +13,7 @@ export function MyPosts(props: PropsType) {
     const postsElements = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     const onClickAddPost = () => {
-        debugger
-        props.addPost(props.newPostText)
+        props.addPost()
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewPostText(e.currentTarget.value)
