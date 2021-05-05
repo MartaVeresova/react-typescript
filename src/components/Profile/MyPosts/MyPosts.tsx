@@ -1,12 +1,17 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
+import React, {ChangeEvent, KeyboardEvent} from 'react'
 import {Post} from './Post/Post'
 import s from './MyPosts.module.css'
-import {ActionsTypes, ProfilePageType} from '../../../redux/state';
+import {
+    ActionsTypes,
+    addPostActionCreator,
+    ProfilePageType,
+    UPDATE_NEW_POST_TEXT,
+    updateNewPostTextActionCreator
+} from '../../../redux/state';
 
 type PropsType = ProfilePageType & {
     dispatch: (action: ActionsTypes) => void
 }
-
 
 export function MyPosts(props: PropsType) {
 
@@ -14,14 +19,14 @@ export function MyPosts(props: PropsType) {
 
     const onClickAddPost = () => {
         //props.addPost()
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(addPostActionCreator())
     }
     const onKeyPressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         (e.key === 'Enter') && onClickAddPost()
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         //props.updateNewPostText(e.currentTarget.value)
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value})
+        props.dispatch(updateNewPostTextActionCreator(e.currentTarget.value))
     }
 
 

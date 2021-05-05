@@ -1,4 +1,5 @@
 import {v1} from 'uuid';
+import {ChangeEvent} from 'react';
 
 export type StoreType = {
     _state: RootStateType
@@ -41,21 +42,29 @@ export type DialogItemType = {
     id: string
     name: string
 }
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-export type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-}
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newText: string
-}
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageTextActionType
+
+export type ActionsTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateNewPostTextActionCreator>
+    | ReturnType<typeof addMessageActionCreator>
+    | ReturnType<typeof updateNewMessageTextActionCreator>
+
+export const ADD_POST = 'ADD-POST'
+export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+export const ADD_MESSAGE = 'ADD-MESSAGE'
+export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+
+export const addPostActionCreator = () => ({type: ADD_POST}) as const
+export const updateNewPostTextActionCreator = (newText: string) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: newText
+}) as const
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE}) as const
+export const updateNewMessageTextActionCreator = (newText: string) => ({
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    newText: newText
+}) as const
+
 
 export const store: StoreType = {
     _state: {
@@ -95,7 +104,7 @@ export const store: StoreType = {
     },
 
     dispatch(action) { //{type: 'ADD-POST'} --- объект, в котором есть свойство type со значением строка
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             let newPost: PostType = {
                 id: v1(),
                 message: this._state.profilePage.newPostText,
@@ -104,10 +113,10 @@ export const store: StoreType = {
             this._state.profilePage.postsData.push(newPost)
             this._state.profilePage.newPostText = ''
             this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber()
-        } else if (action.type === 'ADD-MESSAGE') {
+        } else if (action.type === ADD_MESSAGE) {
             const newMessage = {
                 id: v1(),
                 messageContent: this._state.dialogsPage.newMessageText,
@@ -115,7 +124,7 @@ export const store: StoreType = {
             this._state.dialogsPage.messagesData.push(newMessage)
             this._state.dialogsPage.newMessageText = ''
             this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.newText
             this._callSubscriber()
         }
@@ -123,8 +132,6 @@ export const store: StoreType = {
 }
 
 //store OOP
-
-
 
 
 /*

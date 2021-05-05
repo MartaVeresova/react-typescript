@@ -2,7 +2,13 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
-import {ActionsTypes, DialogsPageType} from '../../redux/state';
+import {
+    ActionsTypes,
+    addMessageActionCreator,
+    DialogsPageType,
+    UPDATE_NEW_MESSAGE_TEXT,
+    updateNewMessageTextActionCreator
+} from '../../redux/state';
 
 
 export type DialogsPropsType = {
@@ -20,7 +26,7 @@ export function Dialogs(props: DialogsPropsType) {
 
     const onClickAddMessage = () => {
         //props.addMessage()
-        props.dispatch({type: 'ADD-MESSAGE'})
+        props.dispatch(addMessageActionCreator())
     }
     const onKeyPressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
         (e.key === 'Enter') && onClickAddMessage()
@@ -28,7 +34,7 @@ export function Dialogs(props: DialogsPropsType) {
 
     const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         //props.updateNewMessageText(e.currentTarget.value)
-        props.dispatch({type: 'UPDATE-NEW-MESSAGE-TEXT', newText: (e.currentTarget.value)})
+        props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value))
     }
 
     return (
