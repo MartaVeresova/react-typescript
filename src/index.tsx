@@ -1,38 +1,31 @@
 import React from 'react'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-import {
-    state,
-    addMessage,
-    addPost,
-    RootStateType,
-    subscribe,
-    updateNewMessageText,
-    updateNewPostText
-} from './redux/state';
 import ReactDOM from 'react-dom'
 import App from './App'
-import {BrowserRouter} from 'react-router-dom'
+import {HashRouter} from 'react-router-dom'
+import {RootStateType, store} from './redux/state';
 
 const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <BrowserRouter>
+            <HashRouter>
                 <App
-                    appState={state}
-                    addPost={addPost}
-                    addMessage={addMessage}
-                    updateNewPostText={updateNewPostText}
-                    updateNewMessageText={updateNewMessageText}
+                    state={state}
+                    appState={store.getState()}
+                    addPost={store.addPost.bind(store)}
+                    addMessage={store.addMessage.bind(store)}
+                    updateNewPostText={store.updateNewPostText.bind(store)}
+                    updateNewMessageText={store.updateNewMessageText.bind(store)}
                 />
-            </BrowserRouter>
+            </HashRouter>
         </React.StrictMode>,
         document.getElementById('root')
     )
 }
-rerenderEntireTree(state)
-subscribe(() => {
-    rerenderEntireTree(state)
+rerenderEntireTree(store.getState())
+store.subscribe(() => {
+    rerenderEntireTree(store.getState())
 })
 
 // If you want to start measuring performance in your app, pass a function

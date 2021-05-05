@@ -12,6 +12,7 @@ import {RootStateType} from './redux/state';
 
 
 export type AppPropsType = {
+    state?: RootStateType
     appState: RootStateType
     addPost: () => void
     addMessage: () => void
