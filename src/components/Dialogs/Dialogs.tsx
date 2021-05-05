@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
@@ -22,6 +22,9 @@ export function Dialogs(props: DialogsPropsType) {
         //props.addMessage()
         props.dispatch({type: 'ADD-MESSAGE'})
     }
+    const onKeyPressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        (e.key === 'Enter') && onClickAddMessage()
+    }
 
     const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         //props.updateNewMessageText(e.currentTarget.value)
@@ -42,6 +45,7 @@ export function Dialogs(props: DialogsPropsType) {
                         className={s.textarea}
                         onChange={onChangeMessage}
                         value={props.stateDialogsPage.newMessageText}
+                        onKeyPress={onKeyPressEnter}
                     />
                 </div>
                 <div>

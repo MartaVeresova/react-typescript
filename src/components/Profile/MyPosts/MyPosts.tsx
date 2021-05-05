@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react'
 import {Post} from './Post/Post'
 import s from './MyPosts.module.css'
 import {ActionsTypes, ProfilePageType} from '../../../redux/state';
@@ -9,11 +9,15 @@ type PropsType = ProfilePageType & {
 
 
 export function MyPosts(props: PropsType) {
+
     const postsElements = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     const onClickAddPost = () => {
         //props.addPost()
         props.dispatch({type: 'ADD-POST'})
+    }
+    const onKeyPressEnter = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        (e.key === 'Enter') && onClickAddPost()
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
         //props.updateNewPostText(e.currentTarget.value)
@@ -29,6 +33,7 @@ export function MyPosts(props: PropsType) {
                     <textarea
                         onChange={onChangePost}
                         value={props.newPostText}
+                        onKeyPress={onKeyPressEnter}
                     />
                 </div>
                 <div>
