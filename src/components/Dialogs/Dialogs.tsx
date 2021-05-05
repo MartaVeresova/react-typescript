@@ -2,13 +2,8 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
-import {
-    ActionsTypes,
-    addMessageActionCreator,
-    DialogsPageType,
-    UPDATE_NEW_MESSAGE_TEXT,
-    updateNewMessageTextActionCreator
-} from '../../redux/state';
+import {ActionsTypes, DialogsPageType,} from '../../redux/state';
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reduser';
 
 
 export type DialogsPropsType = {
@@ -48,6 +43,7 @@ export function Dialogs(props: DialogsPropsType) {
                 {messagesElements}
                 <div>
                     <textarea
+                        placeholder="Enter your message"
                         className={s.textarea}
                         onChange={onChangeMessage}
                         value={props.stateDialogsPage.newMessageText}

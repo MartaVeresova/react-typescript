@@ -1,13 +1,11 @@
 import {v1} from 'uuid';
-import {ChangeEvent} from 'react';
+import profileReduser, {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reduser';
+import dialogsReduser, {addMessageActionCreator, updateNewMessageTextActionCreator} from './dialogs-reduser';
+import sidebarReduser from './sidebar-reduser';
 
 export type StoreType = {
     _state: RootStateType
-    _callSubscriber: () => void
-    /*addPost: () => void
-    updateNewPostText: (newText: string) => void
-    addMessage: () => void
-    updateNewMessageText: (newText: string) => void*/
+    _callSubscriber: (state: RootStateType) => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
@@ -49,22 +47,6 @@ export type ActionsTypes =
     | ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof updateNewMessageTextActionCreator>
 
-export const ADD_POST = 'ADD-POST'
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-export const ADD_MESSAGE = 'ADD-MESSAGE'
-export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
-
-export const addPostActionCreator = () => ({type: ADD_POST}) as const
-export const updateNewPostTextActionCreator = (newText: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: newText
-}) as const
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE}) as const
-export const updateNewMessageTextActionCreator = (newText: string) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: newText
-}) as const
-
 
 export const store: StoreType = {
     _state: {
@@ -95,7 +77,6 @@ export const store: StoreType = {
     _callSubscriber() {
         console.log('state changed')
     },
-
     subscribe(observer) {
         this._callSubscriber = observer
     },
@@ -104,61 +85,39 @@ export const store: StoreType = {
     },
 
     dispatch(action) { //{type: 'ADD-POST'} --- объект, в котором есть свойство type со значением строка
-        if (action.type === ADD_POST) {
-            let newPost: PostType = {
-                id: v1(),
-                message: this._state.profilePage.newPostText,
-                likesCount: 0,
-            }
-            this._state.profilePage.postsData.push(newPost)
-            this._state.profilePage.newPostText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber()
-        } else if (action.type === ADD_MESSAGE) {
-            const newMessage = {
-                id: v1(),
-                messageContent: this._state.dialogsPage.newMessageText,
-            }
-            this._state.dialogsPage.messagesData.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber()
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.newText
-            this._callSubscriber()
-        }
+
+        this._state.profilePage = profileReduser(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReduser(this._state.sidebar, action)
+
+        this._callSubscriber(this._state)
+
+
+        // if (action.type === ADD_POST) {
+        //     let newPost: PostType = {
+        //         id: v1(),
+        //         message: this._state.profilePage.newPostText,
+        //         likesCount: 0,
+        //     }
+        //     this._state.profilePage.postsData.push(newPost)
+        //     this._state.profilePage.newPostText = ''
+        //     this._callSubscriber()
+        // } else if (action.type === UPDATE_NEW_POST_TEXT) {
+        //     this._state.profilePage.newPostText = action.newText
+        //     this._callSubscriber()
+        // } else if (action.type === ADD_MESSAGE) {
+        //     const newMessage = {
+        //         id: v1(),
+        //         messageContent: this._state.dialogsPage.newMessageText,
+        //     }
+        //     this._state.dialogsPage.messagesData.push(newMessage)
+        //     this._state.dialogsPage.newMessageText = ''
+        //     this._callSubscriber()
+        // } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+        //     this._state.dialogsPage.newMessageText = action.newText
+        //     this._callSubscriber()
+        // }
     }
 }
 
 //store OOP
-
-
-/*
-addPost() {
-    let newPost: PostType = {
-        id: v1(),
-        message: this._state.profilePage.newPostText,
-        likesCount: 0,
-    }
-    this._state.profilePage.postsData.push(newPost)
-    this._state.profilePage.newPostText = ''
-    this._callSubscriber()
-},
-updateNewPostText(newText: string) {
-    this._state.profilePage.newPostText = newText
-    this._callSubscriber()
-},
-addMessage() {
-    const newMessage = {
-        id: v1(),
-        messageContent: this._state.dialogsPage.newMessageText,
-    }
-    this._state.dialogsPage.messagesData.push(newMessage)
-    this._state.dialogsPage.newMessageText = ''
-    this._callSubscriber()
-},
-updateNewMessageText(newNext: string) {
-    this._state.dialogsPage.newMessageText = newNext
-    this._callSubscriber()
-},*/

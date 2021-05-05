@@ -1,13 +1,8 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react'
 import {Post} from './Post/Post'
 import s from './MyPosts.module.css'
-import {
-    ActionsTypes,
-    addPostActionCreator,
-    ProfilePageType,
-    UPDATE_NEW_POST_TEXT,
-    updateNewPostTextActionCreator
-} from '../../../redux/state';
+import {ActionsTypes, ProfilePageType,} from '../../../redux/state';
+import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reduser';
 
 type PropsType = ProfilePageType & {
     dispatch: (action: ActionsTypes) => void
