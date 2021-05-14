@@ -4,7 +4,8 @@ import reportWebVitals from './reportWebVitals'
 import ReactDOM from 'react-dom'
 import App from './App'
 import {HashRouter} from 'react-router-dom'
-import {RootStateType, store} from './redux/state';
+import {RootStateType} from './redux/store';
+import {store} from './redux/redux-store';
 
 const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(

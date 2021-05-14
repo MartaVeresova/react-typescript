@@ -91,32 +91,6 @@ export const store: StoreType = {
         this._state.sidebar = sidebarReduser(this._state.sidebar, action)
 
         this._callSubscriber(this._state)
-
-
-        // if (action.type === ADD_POST) {
-        //     let newPost: PostType = {
-        //         id: v1(),
-        //         message: this._state.profilePage.newPostText,
-        //         likesCount: 0,
-        //     }
-        //     this._state.profilePage.postsData.push(newPost)
-        //     this._state.profilePage.newPostText = ''
-        //     this._callSubscriber()
-        // } else if (action.type === UPDATE_NEW_POST_TEXT) {
-        //     this._state.profilePage.newPostText = action.newText
-        //     this._callSubscriber()
-        // } else if (action.type === ADD_MESSAGE) {
-        //     const newMessage = {
-        //         id: v1(),
-        //         messageContent: this._state.dialogsPage.newMessageText,
-        //     }
-        //     this._state.dialogsPage.messagesData.push(newMessage)
-        //     this._state.dialogsPage.newMessageText = ''
-        //     this._callSubscriber()
-        // } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-        //     this._state.dialogsPage.newMessageText = action.newText
-        //     this._callSubscriber()
-        // }
     }
 }
 

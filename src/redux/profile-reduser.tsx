@@ -1,5 +1,5 @@
 import React from 'react'
-import {ActionsTypes, PostType, ProfilePageType} from './state';
+import {ActionsTypes, PostType, ProfilePageType} from './store';
 import {v1} from 'uuid';
 
 export const ADD_POST = 'ADD-POST'
@@ -11,8 +11,15 @@ export const updateNewPostTextActionCreator = (newText: string) => ({
     newText: newText
 }) as const
 
+const initialState = {
+    postsData: [
+        {id: v1(), message: 'Hello', likesCount: 11},
+        {id: v1(), message: 'Buy', likesCount: 15},
+    ],
+    newPostText: ''
+}
 
-const profileReduser = (state: ProfilePageType, action: ActionsTypes) => {
+const profileReduser = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
             let newPost: PostType = {
