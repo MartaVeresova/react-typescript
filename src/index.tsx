@@ -3,20 +3,19 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import ReactDOM from 'react-dom'
 import App from './App'
-import {HashRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 import {RootStateType} from './redux/store';
 import {store} from './redux/redux-store';
+import {Provider} from './storeContext';
 
 const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
         <React.StrictMode>
-            <HashRouter>
-                <App
-                    store={store}
-                    state={state}
-                    dispatch={store.dispatch.bind(store)}
-                />
-            </HashRouter>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <App/>
+                </Provider>
+            </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     )

@@ -1,30 +1,31 @@
-import React, {ChangeEvent} from 'react';
-import {ActionsTypes, StoreType,} from '../../redux/store';
+import React from 'react';
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reduser';
 import {Dialogs} from './Dialogs';
+import {StoreContext} from '../../storeContext';
 
 
-export type DialogsPropsType = {
-    store: StoreType
-    dispatch: (action: ActionsTypes) => void
-}
+export type DialogsPropsType = {}
 
 export function DialogsContainer(props: DialogsPropsType) {
-    const state = props.store.getState()
-
-    const onClickAddMessage = () => {
-        props.dispatch(addMessageActionCreator())
-    }
-
-    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value))
-    }
 
     return (
-        <Dialogs
-            stateDialogsPage={state.dialogsPage}
-            addMessage={onClickAddMessage}
-            updateNewMessageText={onChangeMessage}
-        />
+        <StoreContext.Consumer>
+            {(store) => {
+                const state = store.getState().dialogsPage
+
+                const onClickAddMessage = () => {
+                    store.dispatch(addMessageActionCreator())
+                }
+
+                const onChangeMessage = (newText: string) => {
+                    store.dispatch(updateNewMessageTextActionCreator(newText))
+                }
+                return <Dialogs
+                    stateDialogsPage={state}
+                    addMessage={onClickAddMessage}
+                    updateNewMessageText={onChangeMessage}
+                />
+            }}
+        </StoreContext.Consumer>
     )
 }
