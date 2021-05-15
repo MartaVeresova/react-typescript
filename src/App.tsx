@@ -3,15 +3,16 @@ import s from './App.module.css'
 import {Header} from './components/Header/Header'
 import {Navbar} from './components/Navbar/Navbar'
 import {Profile} from './components/Profile/Profile'
-import {Dialogs} from './components/Dialogs/Dialogs';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
 import {Route} from 'react-router-dom'
-import {ActionsTypes, RootStateType} from './redux/store';
+import {ActionsTypes, RootStateType, StoreType} from './redux/store';
+import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
 
 export type AppPropsType = {
+    store: StoreType
     state: RootStateType
     dispatch: (action: ActionsTypes) => void
 }
@@ -24,11 +25,10 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className={s.appWrapperContent}>
                 <Route exact path={'/profile'} render={() => <Profile
-                    stateProfilePage={props.state.profilePage}
-                    dispatch={props.dispatch}
+                    store={props.store}
                     />}/>
-                <Route exact path={'/dialogs'} render={() => <Dialogs
-                    stateDialogsPage={props.state.dialogsPage}
+                <Route exact path={'/dialogs'} render={() => <DialogsContainer
+                    store={props.store}
                     dispatch={props.dispatch}
                     />}/>
                 <Route exact path="/news" render={() => <News/>}/>

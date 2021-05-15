@@ -12,6 +12,7 @@ const rerenderEntireTree = (state: RootStateType) => {
         <React.StrictMode>
             <HashRouter>
                 <App
+                    store={store}
                     state={state}
                     dispatch={store.dispatch.bind(store)}
                 />
