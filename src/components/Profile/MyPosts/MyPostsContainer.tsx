@@ -1,30 +1,34 @@
 import React from 'react'
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reduser';
+import {addPostActionCreator, PostType, updateNewPostTextActionCreator} from '../../../redux/profile-reduser';
 import {MyPosts} from './MyPosts';
-import {StoreContext} from '../../../storeContext';
+import {connect} from 'react-redux';
+import {AppStateType} from '../../../redux/redux-store';
+import {Dispatch} from 'redux';
 
-type PropsType = {}
 
-export function MyPostsContainer(props: PropsType) {
-
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                const state = store.getState().profilePage
-                const onClickAddPost = () => {
-                    store.dispatch(addPostActionCreator())
-                }
-                const onChangePost = (value: string) => {
-                    store.dispatch(updateNewPostTextActionCreator(value))
-                }
-                return <MyPosts
-                    addPost={onClickAddPost}
-                    updateNewPostText={onChangePost}
-                    postsData={state.postsData}
-                    newPostText={state.newPostText}
-                />
-            }}
-        </StoreContext.Consumer>
-    )
+type MapStateToPropsType = {
+    postsData: Array<PostType>
+    newPostText: string
 }
+
+type MapDispatchToPropsType = {
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
+}
+
+export type MyPostsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        postsData: state.profilePage.postsData,
+        newPostText: state.profilePage.newPostText,
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+    return {
+        addPost: () => dispatch(addPostActionCreator()),
+        updateNewPostText: (newText: string) => dispatch(updateNewPostTextActionCreator(newText)),
+    }
+}
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 

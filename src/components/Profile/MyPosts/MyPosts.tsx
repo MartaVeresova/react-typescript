@@ -1,14 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react'
 import {Post} from './Post/Post'
 import s from './MyPosts.module.css'
-import {ProfilePageType,} from '../../../redux/store';
+import {MyPostsType} from './MyPostsContainer';
 
-type PropsType = ProfilePageType & {
-    addPost: () => void
-    updateNewPostText: (value: string) => void
-}
 
-export function MyPosts(props: PropsType) {
+export function MyPosts(props: MyPostsType) {
 
     const postsElements = props.postsData.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 

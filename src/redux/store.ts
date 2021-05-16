@@ -18,25 +18,25 @@ export type RootStateType = {
 
 }
 export type SidebarPageType = {}
-export type ProfilePageType = {
+type ProfilePageType = {
     postsData: Array<PostType>
     newPostText: string
 }
-export type PostType = {
+type PostType = {
     id?: string
     message: string
     likesCount: number
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogsData: Array<DialogItemType>
     messagesData: Array<MessageItemType>
     newMessageText: string
 }
-export type MessageItemType = {
+type MessageItemType = {
     id?: string
     messageContent: string
 }
-export type DialogItemType = {
+type DialogItemType = {
     id: string
     name: string
 }

@@ -1,31 +1,35 @@
 import React from 'react';
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from '../../redux/dialogs-reduser';
+import {
+    addMessageActionCreator,
+    InitialStateType,
+    updateNewMessageTextActionCreator
+} from '../../redux/dialogs-reduser';
 import {Dialogs} from './Dialogs';
-import {StoreContext} from '../../storeContext';
+import {connect} from 'react-redux';
+import {AppStateType} from '../../redux/redux-store';
+import {Dispatch} from 'redux';
 
 
-export type DialogsPropsType = {}
-
-export function DialogsContainer(props: DialogsPropsType) {
-
-    return (
-        <StoreContext.Consumer>
-            {(store) => {
-                const state = store.getState().dialogsPage
-
-                const onClickAddMessage = () => {
-                    store.dispatch(addMessageActionCreator())
-                }
-
-                const onChangeMessage = (newText: string) => {
-                    store.dispatch(updateNewMessageTextActionCreator(newText))
-                }
-                return <Dialogs
-                    stateDialogsPage={state}
-                    addMessage={onClickAddMessage}
-                    updateNewMessageText={onChangeMessage}
-                />
-            }}
-        </StoreContext.Consumer>
-    )
+type MapStateToPropsType = {
+    stateDialogsPage: InitialStateType
 }
+
+type MapDispatchToPropsType = {
+    addMessage: () => void
+    updateNewMessageText: (newText: string) => void
+}
+export type DialogsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        stateDialogsPage: state.dialogsPage
+    }
+}
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+
+    return {
+        addMessage: () => dispatch(addMessageActionCreator()),
+        updateNewMessageText: (newText: string) => dispatch(updateNewMessageTextActionCreator(newText)),
+    }
+}
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

@@ -9,11 +9,7 @@ import {Settings} from './components/Settings/Settings';
 import {Route} from 'react-router-dom'
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 
-
-export type AppPropsType = {
-
-}
-
+export type AppPropsType = {}
 
 function App(props: AppPropsType) {
     return (
