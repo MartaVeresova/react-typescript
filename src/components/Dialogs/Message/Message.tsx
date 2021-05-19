@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './Message.module.css'
-import {MessageItemType} from '../../../redux/dialogs-reduser';
+import {MessageItemType} from '../../../redux/dialogs-reducer';
 
 
 export function Message(props: MessageItemType) {

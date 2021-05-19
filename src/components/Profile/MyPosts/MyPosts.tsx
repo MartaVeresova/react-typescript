@@ -15,7 +15,6 @@ export function MyPosts(props: MyPostsType) {
         (e.key === 'Enter') && onClickAddPost()
     }
     const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger
         props.updateNewPostText(e.currentTarget.value)
     }
 

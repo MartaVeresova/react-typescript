@@ -1,7 +1,7 @@
 import {v1} from 'uuid';
-import profileReduser, {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reduser';
-import dialogsReduser, {addMessageActionCreator, updateNewMessageTextActionCreator} from './dialogs-reduser';
-import sidebarReduser from './sidebar-reduser';
+import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reducer';
+import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator} from './dialogs-reducer';
+import sidebarReducer from './sidebar-reducer';
 
 export type StoreType = {
     _state: RootStateType
@@ -86,9 +86,9 @@ export const store: StoreType = {
 
     dispatch(action) { //{type: 'ADD-POST'} --- объект, в котором есть свойство type со значением строка
 
-        this._state.profilePage = profileReduser(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReduser(this._state.sidebar, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
 
         this._callSubscriber(this._state)
     }
