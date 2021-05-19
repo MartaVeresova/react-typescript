@@ -8,6 +8,8 @@ import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
 import {Route} from 'react-router-dom'
 import {DialogsContainer} from './components/Dialogs/DialogsContainer';
+import {Users} from './components/Users/Users';
+import {UsersContainer} from './components/Users/UsersContainer';
 
 export type AppPropsType = {}
 
@@ -17,8 +19,9 @@ function App(props: AppPropsType) {
             <Header/>
             <Navbar/>
             <div className={s.appWrapperContent}>
-                <Route exact path={'/profile'} render={() => <Profile/>}/>
-                <Route exact path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                <Route exact path="/profile" render={() => <Profile/>}/>
+                <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
+                <Route exact path="/users" render={() => <UsersContainer/>}/>
                 <Route exact path="/news" render={() => <News/>}/>
                 <Route exact path="/music" render={() => <Music/>}/>
                 <Route exact path="/settings" render={() => <Settings/>}/>

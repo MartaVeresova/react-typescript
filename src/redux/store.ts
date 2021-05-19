@@ -2,6 +2,7 @@ import {v1} from 'uuid';
 import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reducer';
 import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
+import {followAC, setUsersAC, unFollowAC} from './users-reducer';
 
 export type StoreType = {
     _state: RootStateType
@@ -46,6 +47,9 @@ export type ActionsTypes =
     | ReturnType<typeof updateNewPostTextActionCreator>
     | ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof updateNewMessageTextActionCreator>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>
 
 
 export const store: StoreType = {
