@@ -44,11 +44,10 @@ const initialState = {
 export type InitialStateType = typeof initialState
 
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
-    let stateCopy
 
     switch (action.type) {
         case ADD_MESSAGE:
-            stateCopy = {
+            return {
                 ...state,
                 newMessageText: '',
                 messagesData: [
@@ -56,13 +55,11 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionsT
                     {id: v1(), messageContent: state.newMessageText}
                 ],
             }
-            return stateCopy
         case UPDATE_NEW_MESSAGE_TEXT:
-            stateCopy = {
+            return {
                 ...state,
                 newMessageText: action.newText
             }
-            return stateCopy
         default:
             return state
     }

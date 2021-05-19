@@ -33,11 +33,10 @@ const initialState = {
 export type InitialStateType = typeof initialState
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
-    let stateCopy
 
     switch (action.type) {
         case ADD_POST:
-            stateCopy = {
+            return {
                 ...state,
                 newPostText: '',
                 postsData: [
@@ -45,14 +44,11 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
                     {id: v1(), message: state.newPostText, likesCount: 0}
                 ],
             }
-            return stateCopy
         case UPDATE_NEW_POST_TEXT:
-            stateCopy = {
+            return {
                 ...state,
                 newPostText: action.newText
             }
-            return stateCopy
-
         default:
             return state
     }
