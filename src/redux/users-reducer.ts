@@ -1,5 +1,4 @@
 import {ActionsTypes} from './store';
-import {v1} from 'uuid';
 
 export const FOLLOW = 'FOLLOW'
 export const UNFOLLOW = 'UNFOLLOW'
@@ -41,7 +40,7 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
                 ...state,
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
-        case 'SET-USERS':
+        case SET_USERS:
             return {
                 ...state,
                 users: [...state.users, ...action.users]
