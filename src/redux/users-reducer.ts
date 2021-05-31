@@ -12,14 +12,17 @@ export type LocationType = {
     city: string
     country: string
 }
-
+export type PhotoType = {
+    small: string
+    large: string
+}
 export type UsersType = {
     id: string
     followed: boolean
-    fullName: string
+    name: string
     status: string
-    location: LocationType
-    photoUrl: string
+    location?: LocationType
+    photos: PhotoType
 }
 const initialState = {
     users: [] as Array<UsersType>,
