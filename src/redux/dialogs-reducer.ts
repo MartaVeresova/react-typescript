@@ -4,8 +4,8 @@ import {ActionsTypes} from './store';
 export const ADD_MESSAGE = 'ADD-MESSAGE'
 export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE}) as const
-export const updateNewMessageTextActionCreator = (newText: string) => ({
+export const addMessage = () => ({type: ADD_MESSAGE}) as const
+export const updateNewMessageText = (newText: string) => ({
     type: UPDATE_NEW_MESSAGE_TEXT,
     newText: newText
 }) as const

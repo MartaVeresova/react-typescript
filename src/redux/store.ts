@@ -1,14 +1,14 @@
 import {v1} from 'uuid';
-import profileReducer, {addPostActionCreator, updateNewPostTextActionCreator} from './profile-reducer';
-import dialogsReducer, {addMessageActionCreator, updateNewMessageTextActionCreator} from './dialogs-reducer';
+import profileReducer, {addPost, updateNewPostText} from './profile-reducer';
+import dialogsReducer, {addMessage, updateNewMessageText} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUsersAC,
-    toggleIsFetchingAC,
-    unFollowAC
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unFollow
 } from './users-reducer';
 
 export type StoreType = {
@@ -50,16 +50,16 @@ type DialogItemType = {
 }
 
 export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextActionCreator>
-    | ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof updateNewMessageTextActionCreator>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof toggleIsFetchingAC>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPostText>
+    | ReturnType<typeof addMessage>
+    | ReturnType<typeof updateNewMessageText>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
 
 
 export const store: StoreType = {
