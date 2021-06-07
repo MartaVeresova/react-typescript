@@ -1,6 +1,6 @@
 import React from 'react'
 import s from './ProfileInfo.module.css'
-import {InitialStateType, ProfileType} from '../../../redux/profile-reducer';
+import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 
 type PropsType= {
@@ -14,9 +14,11 @@ export function ProfileInfo(props: PropsType) {
         <div className={s.profileInfo}>
             <div>
                 <img
-                    src={props.profile?.photos.large}/>
+                    src=''/>
             </div>
             <div className={s.descriptionBlock}>
+                <img
+                    src={props.profile?.photos.large}/>
                 ava+description
             </div>
         </div>
