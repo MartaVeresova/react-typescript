@@ -9,7 +9,7 @@ export const addPost = () => ({type: ADD_POST}) as const
 export const updateNewPostText = (newText: string) => {
     return {
         type: UPDATE_NEW_POST_TEXT,
-        newText
+        newText: newText,
     } as const
 }
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
@@ -40,7 +40,7 @@ type PhotoType = {
     large: string
 }
 export type PostType = {
-    id?: string
+    id: string
     message: string
     likesCount: number
 }
@@ -53,7 +53,11 @@ const initialState = {
     profile: null as ProfileType | null,
 }
 
-export type InitialStateType = typeof initialState
+export type InitialStateType = {
+    postsData: Array<PostType>
+    newPostText: string
+    profile: ProfileType | null,
+}
 
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {

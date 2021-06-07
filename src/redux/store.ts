@@ -1,15 +1,8 @@
 import {v1} from 'uuid';
-import profileReducer, {addPost, setUserProfile, updateNewPostText} from './profile-reducer';
-import dialogsReducer, {addMessage, updateNewMessageText} from './dialogs-reducer';
+import profileReducer, {ProfileType} from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
-import {
-    follow,
-    setCurrentPage,
-    setTotalUsersCount,
-    setUsers,
-    toggleIsFetching,
-    unFollow
-} from './users-reducer';
+import {UsersType} from './users-reducer';
 
 export type StoreType = {
     _state: RootStateType
@@ -50,18 +43,63 @@ type DialogItemType = {
     name: string
 }
 
+
+type AddPostType = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostTextType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+type SetUserProfileType = {
+    type: 'SET-USER-PROFILE'
+    profile: ProfileType
+}
+type AddMessageType = {
+    type: 'ADD-MESSAGE'
+}
+type UpdateNewMessageTextType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newText: string
+}
+type FollowType = {
+    type: 'FOLLOW'
+    userId: string
+}
+type UnFollowType = {
+    type: 'UNFOLLOW'
+    userId: string
+}
+type SetUsersType = {
+    type: 'SET-USERS'
+    users: Array<UsersType>
+}
+type SetCurrentPageType = {
+    type: 'SET-CURRENT-PAGE'
+    currentPage: number
+}
+type SetTotalUsersCountType = {
+    type: 'SET-TOTAL-USERS-COUNT'
+    totalCount: number
+}
+type ToggleIsFetchingType = {
+    type: 'TOGGLE-IS-FETCHING'
+    isFetching: boolean
+}
+
+
 export type ActionsTypes =
-    ReturnType<typeof addPost>
-    | ReturnType<typeof updateNewPostText>
-    | ReturnType<typeof addMessage>
-    | ReturnType<typeof updateNewMessageText>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
-    | ReturnType<typeof setUsers>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof toggleIsFetching>
-    | ReturnType<typeof setUserProfile>
+    AddPostType
+    | UpdateNewPostTextType
+    | SetUserProfileType
+    | AddMessageType
+    | UpdateNewMessageTextType
+    | FollowType
+    | UnFollowType
+    | SetUsersType
+    | SetCurrentPageType
+    | SetTotalUsersCountType
+    | ToggleIsFetchingType
 
 
 export const store: StoreType = {
@@ -103,11 +141,11 @@ export const store: StoreType = {
 
     dispatch(action) { //{type: 'ADD-POST'} --- объект, в котором есть свойство type со значением строка
 
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-
-        this._callSubscriber(this._state)
+        // this._state.profilePage = profileReducer(this._state.profilePage, action)
+        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        // this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        //
+        // this._callSubscriber(this._state)
     }
 }
 

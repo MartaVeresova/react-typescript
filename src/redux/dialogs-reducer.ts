@@ -4,11 +4,11 @@ import {ActionsTypes} from './store';
 export const ADD_MESSAGE = 'ADD-MESSAGE'
 export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-export const addMessage = () => ({type: ADD_MESSAGE}) as const
+export const addMessage = () => ({type: ADD_MESSAGE})
 export const updateNewMessageText = (newText: string) => ({
     type: UPDATE_NEW_MESSAGE_TEXT,
     newText: newText
-}) as const
+})
 
 export type DialogsPageType = {
     dialogsData: Array<DialogItemType>
