@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import profileReducer, {addPost, updateNewPostText} from './profile-reducer';
+import profileReducer, {addPost, setUserProfile, updateNewPostText} from './profile-reducer';
 import dialogsReducer, {addMessage, updateNewMessageText} from './dialogs-reducer';
 import sidebarReducer from './sidebar-reducer';
 import {
@@ -29,6 +29,7 @@ export type SidebarPageType = {}
 type ProfilePageType = {
     postsData: Array<PostType>
     newPostText: string
+    profile: any
 }
 type PostType = {
     id?: string
@@ -60,6 +61,7 @@ export type ActionsTypes =
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 
 export const store: StoreType = {
@@ -69,7 +71,8 @@ export const store: StoreType = {
                 {id: v1(), message: 'Hello', likesCount: 11},
                 {id: v1(), message: 'Buy', likesCount: 15},
             ],
-            newPostText: ''
+            newPostText: '',
+            profile: null
         },
         dialogsPage: {
             dialogsData: [

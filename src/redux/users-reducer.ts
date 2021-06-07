@@ -20,11 +20,11 @@ export const toggleIsFetching = (isFetching: boolean) => ({
 }) as const
 
 
-export type LocationType = {
+type LocationType = {
     city: string
     country: string
 }
-export type PhotoType = {
+type PhotoType = {
     small: string
     large: string
 }
@@ -39,7 +39,7 @@ export type UsersType = {
 const initialState = {
     users: [] as Array<UsersType>,
     pageSize: 5,
-    totalUsersCount: 0,
+    totalUsersCount: 100,
     currentPage: 1,
     isFetching: false
 }

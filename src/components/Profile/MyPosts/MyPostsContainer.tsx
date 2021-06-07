@@ -5,12 +5,12 @@ import {connect} from 'react-redux';
 import {AppStateType} from '../../../redux/redux-store';
 
 
-type MapStateToPropsType = {
+export type MapStateToPropsType = {
     postsData: Array<PostType>
     newPostText: string
 }
 
-type MapDispatchToPropsType = {
+export type MapDispatchToPropsType = {
     addPost: () => void
     updateNewPostText: (newText: string) => void
 }
