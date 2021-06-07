@@ -14,7 +14,6 @@ export const updateNewPostText = (newText: string) => {
 }
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
 
-
 export type ProfileType = {
     aboutMe: string
     contacts: ProfileContactsType
@@ -24,7 +23,6 @@ export type ProfileType = {
     userId: number
     photos: PhotoType
 }
-
 type ProfileContactsType = {
     facebook: string
     website: string
@@ -44,6 +42,7 @@ export type PostType = {
     message: string
     likesCount: number
 }
+
 const initialState = {
     postsData: [
         {id: v1(), message: 'Hello', likesCount: 11},
@@ -58,7 +57,6 @@ export type InitialStateType = {
     newPostText: string
     profile: ProfileType | null,
 }
-
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
 

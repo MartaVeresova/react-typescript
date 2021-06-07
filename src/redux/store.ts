@@ -1,7 +1,5 @@
 import {v1} from 'uuid';
-import profileReducer, {ProfileType} from './profile-reducer';
-import dialogsReducer from './dialogs-reducer';
-import sidebarReducer from './sidebar-reducer';
+import {ProfileType} from './profile-reducer';
 import {UsersType} from './users-reducer';
 
 export type StoreType = {

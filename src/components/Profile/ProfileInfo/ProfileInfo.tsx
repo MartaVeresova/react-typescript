@@ -4,10 +4,10 @@ import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 
 type PropsType= {
-    profile: ProfileType | null
+    profile: ProfileType
 }
 export function ProfileInfo(props: PropsType) {
-    if (!props.profile?.photos) {
+    if (!props.profile.photos) {
         return <Preloader/>
     }
     return (
@@ -18,7 +18,7 @@ export function ProfileInfo(props: PropsType) {
             </div>
             <div className={s.descriptionBlock}>
                 <img
-                    src={props.profile?.photos.large}/>
+                    src={props.profile.photos.large}/>
                 ava+description
             </div>
         </div>
