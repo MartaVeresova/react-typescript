@@ -9,7 +9,7 @@ type PropsType = {
 export function Post(props: PropsType) {
     return (
         <div className={s.item}>
-            <img src="https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg"/>
+            <img src="https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg" alt={''}/>
             {props.message}
             <div>
                 <span>{props.likesCount}</span>

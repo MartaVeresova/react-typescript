@@ -65,7 +65,7 @@ type FollowType = {
     type: 'FOLLOW'
     userId: string
 }
-type UnFollowType = {
+type UnfollowType = {
     type: 'UNFOLLOW'
     userId: string
 }
@@ -88,7 +88,11 @@ type ToggleIsFetchingType = {
 export type SetAuthUserDataType = {
     type: 'SET-USER-DATA'
     data: InitialStateType
-
+}
+export type ToggleIsFollowingProgressType = {
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS'
+    isFetching: boolean
+    userId: string
 }
 
 
@@ -99,12 +103,13 @@ export type ActionsTypes =
     | AddMessageType
     | UpdateNewMessageTextType
     | FollowType
-    | UnFollowType
+    | UnfollowType
     | SetUsersType
     | SetCurrentPageType
     | SetTotalUsersCountType
     | ToggleIsFetchingType
     | SetAuthUserDataType
+    | ToggleIsFollowingProgressType
 
 
 export const store: StoreType = {

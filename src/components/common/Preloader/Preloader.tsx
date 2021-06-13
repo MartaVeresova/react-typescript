@@ -3,6 +3,6 @@ import React from 'react';
 
 export function Preloader() {
     return <>
-        <img src={preloader}/>
+        <img src={preloader} alt={''}/>
     </>
 }

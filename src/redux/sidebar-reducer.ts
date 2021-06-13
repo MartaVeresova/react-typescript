@@ -1,4 +1,3 @@
-import React from 'react'
 import {ActionsTypes, SidebarPageType} from './store';
 
 const initialState = {}

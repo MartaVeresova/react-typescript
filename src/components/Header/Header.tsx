@@ -12,7 +12,7 @@ export function Header(props: PropsType) {
     return (
         <header className={s.header}>
             <img
-                src={LogoForHeader}/>
+                src={LogoForHeader} alt={''}/>
             <div className={s.loginBlock}>
                 {props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}
             </div>

@@ -18,13 +18,39 @@ export const usersAPI = {
     }
 }
 
-// export const followUnfollowAPI = {
-//     getUsers(id: string, follow: (userId: string) => void) {
-//         return instance.post(`follow/${id}`)
-//             .then(response => {
-//                 if (response.data.resultCode === 0) {
-//                     follow(id)
-//                 }
-//             })
-//     }
-// }
+
+export const followAPI = {
+    followUsers(id: string) {
+        return instance.post(`follow/${id}`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+
+export const unfollowAPI = {
+    unfollowUsers(id: string) {
+        return instance.delete(`follow/${id}`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+export const authAPI = {
+    getAuthHeader() {
+        return instance.get(`auth/me`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+
+export const userProfileAPI = {
+    getUserProfile(userId: string) {
+        return instance.get(`profile/` + userId)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+
