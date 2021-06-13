@@ -35,7 +35,7 @@ export function Users(props: UsersPropsType) {
             {
                 props.users.map(u => {
                         const onClickFollow = () => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {}, {
+                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
                                 withCredentials: true,
                                 headers: {
                                     'API-KEY': '56cc9d09-6ac5-48a7-98d1-6f7ea21ef704',
@@ -48,7 +48,7 @@ export function Users(props: UsersPropsType) {
                                 })
                         }
                         const onClickUnFollow = () => {
-                            axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${u.id}`, {
+                            axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
                                 withCredentials: true,
                                 headers: {
                                     'API-KEY': '56cc9d09-6ac5-48a7-98d1-6f7ea21ef704',
