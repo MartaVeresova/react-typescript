@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
 import {ProfileType} from './profile-reducer';
 import {UsersType} from './users-reducer';
+import {InitialStateType} from './auth-reducer';
 
 export type StoreType = {
     _state: RootStateType
@@ -84,6 +85,11 @@ type ToggleIsFetchingType = {
     type: 'TOGGLE-IS-FETCHING'
     isFetching: boolean
 }
+export type SetAuthUserDataType = {
+    type: 'SET-USER-DATA'
+    data: InitialStateType
+
+}
 
 
 export type ActionsTypes =
@@ -98,6 +104,7 @@ export type ActionsTypes =
     | SetCurrentPageType
     | SetTotalUsersCountType
     | ToggleIsFetchingType
+    | SetAuthUserDataType
 
 
 export const store: StoreType = {
