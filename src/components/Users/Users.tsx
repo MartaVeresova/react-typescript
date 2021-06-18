@@ -3,7 +3,6 @@ import userPhoto from '../../assets/images/user.png';
 import s from './Users.module.css';
 import {UsersType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
-import {followAPI, unfollowAPI} from '../../api/api';
 
 type UsersPropsType = {
     totalUsersCount: number
@@ -36,30 +35,30 @@ export function Users(props: UsersPropsType) {
             </div>
             {
                 props.users.map(u => {
-                        const onClickFollow = () => {
-                            props.toggleIsFollowingProgress(true, u.id)
+                    const onClickFollow = () => props.follow(u.id)
+                    // props.toggleIsFollowingProgress(true, u.id)
+                    //
+                    // followAPI.followUsers(u.id)
+                    //     .then(data => {
+                    //         if (data.resultCode === 0) {
+                    //             props.follow(u.id)
+                    //         }
+                    //         props.toggleIsFollowingProgress(false, u.id)
+                    //     })
 
-                            followAPI.followUsers(u.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.follow(u.id)
-                                    }
-                                    props.toggleIsFollowingProgress(false, u.id)
-                                })
-                        }
-                        const onClickUnFollow = () => {
-                            props.toggleIsFollowingProgress(true, u.id)
-                            unfollowAPI.unfollowUsers(u.id)
-                                .then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.unfollow(u.id)
-                                    }
-                                    props.toggleIsFollowingProgress(false, u.id)
-                                })
-                        }
+                    const onClickUnFollow = () => props.unfollow(u.id)
+                    // props.toggleIsFollowingProgress(true, u.id)
+                    // unfollowAPI.unfollowUsers(u.id)
+                    //     .then(data => {
+                    //         if (data.resultCode === 0) {
+                    //             props.unfollow(u.id)
+                    //         }
+                    //         props.toggleIsFollowingProgress(false, u.id)
+                    //     })
 
-                        return (
-                            <div key={u.id}>
+
+                    return (
+                        <div key={u.id}>
                     <span>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
@@ -76,7 +75,7 @@ export function Users(props: UsersPropsType) {
                                           onClick={onClickFollow}>follow</button>}
                         </div>
                     </span>
-                                <span>
+                            <span>
                         <div>
                             {u.name}
                         </div>
@@ -84,13 +83,13 @@ export function Users(props: UsersPropsType) {
                             {u.status}
                         </div>
                     </span>
-                                <span>
+                            <span>
                             <div>{'u.location.country'}</div>
                             <div>{'u.location.city'}</div>
                     </span>
-                            </div>
-                        )
-                    })
+                        </div>
+                    )
+                })
             }
         </div>
     )
