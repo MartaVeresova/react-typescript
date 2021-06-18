@@ -42,10 +42,10 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export const authHeader = (): ThunkType => {
+export const getAuthUserData = (): ThunkType => {
 
     return async (dispatch: Dispatch) => {
-        await authAPI.getAuthHeader()
+        await authAPI.getAuthUser()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {id, email, login} = data.data

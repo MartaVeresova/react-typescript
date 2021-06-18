@@ -1,5 +1,5 @@
 import {ActionsTypes} from './store';
-import {followAPI, unfollowAPI, usersAPI} from '../api/api';
+import {usersAPI} from '../api/api';
 import {Dispatch} from 'redux';
 import {AppStateType} from './redux-store';
 import {ThunkAction} from 'redux-thunk';
@@ -126,7 +126,7 @@ export const follow = (userId: string): ThunkType => {
 
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgress(true, userId))
-        await followAPI.followUsers(userId)
+        await usersAPI.followUsers(userId)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(followSuccess(userId))
@@ -140,7 +140,7 @@ export const unfollow = (userId: string): ThunkType => {
 
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgress(true, userId))
-        await unfollowAPI.unfollowUsers(userId)
+        await usersAPI.unfollowUsers(userId)
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId))

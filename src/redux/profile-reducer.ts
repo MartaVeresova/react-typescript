@@ -3,7 +3,7 @@ import {ActionsTypes} from './store';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from './redux-store';
 import {Dispatch} from 'redux';
-import {userProfileAPI} from '../api/api';
+import {usersAPI} from '../api/api';
 
 export const ADD_POST = 'ADD-POST'
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -92,13 +92,10 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
-export const userProfile = (userId: string): ThunkType => {
+export const getUserProfile = (userId: string): ThunkType => {
 
     return async (dispatch: Dispatch) => {
-        if (!userId) {
-            userId = '2'
-        }
-        await userProfileAPI.getUserProfile(userId)
+        await usersAPI.getUserProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data))
             })
