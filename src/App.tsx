@@ -9,6 +9,7 @@ import {DialogsContainer} from './components/Dialogs/DialogsContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
+import {Login} from './components/Login/Login';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route exact path="/news" render={() => <News/>}/>
                 <Route exact path="/music" render={() => <Music/>}/>
                 <Route exact path="/settings" render={() => <Settings/>}/>
+                <Route exact path="/login" render={() => <Login/>}/>
             </div>
         </div>
     )
