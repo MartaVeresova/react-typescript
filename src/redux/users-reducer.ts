@@ -58,7 +58,7 @@ const initialState = {
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: ['2', '3'],
+    followingInProgress: [],
 }
 
 const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -149,5 +149,6 @@ export const unfollow = (userId: string): ThunkType => {
             })
     }
 }
+
 
 export default usersReducer
