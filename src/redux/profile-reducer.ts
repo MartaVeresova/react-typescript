@@ -20,27 +20,26 @@ export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE
 
 export type ProfileType = {
     aboutMe: string
-    contacts: ProfileContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
     userId: number
-    photos: PhotoType
+    contacts: {
+        facebook: string
+        website: string
+        vk: string
+        twitter: string
+        instagram: string
+        youtube: string
+        github: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
 }
-type ProfileContactsType = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
-}
-type PhotoType = {
-    small: string
-    large: string
-}
+
 export type PostType = {
     id: string
     message: string
@@ -96,8 +95,8 @@ export const getUserProfile = (userId: string): ThunkType => {
 
     return async (dispatch: Dispatch) => {
         await usersAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(setUserProfile(data))
+            .then(res => {
+                dispatch(setUserProfile(res.data))
             })
     }
 }

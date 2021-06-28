@@ -28,21 +28,20 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: string) =
 }) as const
 
 
-type LocationType = {
-    city: string
-    country: string
-}
-type PhotoType = {
-    small: string
-    large: string
-}
 export type UsersType = {
     id: string
     followed: boolean
     name: string
     status: string
-    location?: LocationType
-    photos: PhotoType
+    uniqueUrlName: string | null
+    location?: {
+        city: string
+        country: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
 }
 type InitialStateType = {
     users: Array<UsersType>
@@ -114,10 +113,10 @@ export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
         await usersAPI.getUsers(currentPage, pageSize)
-            .then(data => {
+            .then(res => {
                 dispatch(toggleIsFetching(false))
-                dispatch(setUsers(data.items))
-                dispatch(setTotalUsersCount(data.totalCount))
+                dispatch(setUsers(res.data.items))
+                dispatch(setTotalUsersCount(res.data.totalCount))
             })
     }
 }
@@ -127,8 +126,8 @@ export const follow = (userId: string): ThunkType => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgress(true, userId))
         await usersAPI.followUsers(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
+            .then(res => {
+                if (res.data.resultCode === 0) {
                     dispatch(followSuccess(userId))
                 }
                 dispatch(toggleIsFollowingProgress(false, userId))
@@ -141,8 +140,8 @@ export const unfollow = (userId: string): ThunkType => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgress(true, userId))
         await usersAPI.unfollowUsers(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
+            .then(res => {
+                if (res.data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId))
                 }
                 dispatch(toggleIsFollowingProgress(false, userId))
