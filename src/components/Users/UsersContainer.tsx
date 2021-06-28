@@ -8,7 +8,7 @@ import {
     UsersType
 } from '../../redux/users-reducer';
 import {AppStateType} from '../../redux/redux-store';
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
@@ -73,7 +73,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export default compose(
+export default compose<ComponentType>(
     connect(mapStateToProps, {
         follow,
         unfollow,
