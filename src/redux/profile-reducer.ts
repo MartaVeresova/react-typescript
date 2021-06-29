@@ -95,8 +95,8 @@ export const getUserProfile = (userId: string): ThunkType => {
 
     return async (dispatch: Dispatch) => {
         await usersAPI.getUserProfile(userId)
-            .then(res => {
-                dispatch(setUserProfile(res.data))
+            .then(data => {
+                dispatch(setUserProfile(data))
             })
     }
 }

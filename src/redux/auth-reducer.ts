@@ -46,9 +46,9 @@ export const getAuthUserData = (): ThunkType => {
 
     return async (dispatch: Dispatch) => {
         await authAPI.getAuthUser()
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    let {id, email, login} = res.data.data
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let {id, email, login} = data.data
                     dispatch(setAuthUserData(id, email, login))
                 }
             })

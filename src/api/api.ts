@@ -34,20 +34,25 @@ type GetAuthUserData = {
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
+            .then(res => res.data)
     },
     followUsers(userId: string) {
         return instance.post<CommonResponseType>(`follow/${userId}`)
+            .then(res => res.data)
     },
     unfollowUsers(userId: string) {
         return instance.delete<CommonResponseType>(`follow/${userId}`)
+            .then(res => res.data)
     },
     getUserProfile(userId: string) {
         return instance.get<ProfileType>(`profile/` + userId)
+            .then(res => res.data)
     },
 }
 
 export const authAPI = {
     getAuthUser() {
         return instance.get<CommonResponseType<GetAuthUserData>>(`auth/me`)
+            .then(res => res.data)
     },
 }

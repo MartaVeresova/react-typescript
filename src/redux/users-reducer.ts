@@ -113,10 +113,10 @@ export const getUsers = (currentPage: number, pageSize: number): ThunkType => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
         await usersAPI.getUsers(currentPage, pageSize)
-            .then(res => {
+            .then(data => {
                 dispatch(toggleIsFetching(false))
-                dispatch(setUsers(res.data.items))
-                dispatch(setTotalUsersCount(res.data.totalCount))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
             })
     }
 }
@@ -126,8 +126,8 @@ export const follow = (userId: string): ThunkType => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgress(true, userId))
         await usersAPI.followUsers(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
+            .then(data => {
+                if (data.resultCode === 0) {
                     dispatch(followSuccess(userId))
                 }
                 dispatch(toggleIsFollowingProgress(false, userId))
@@ -140,8 +140,8 @@ export const unfollow = (userId: string): ThunkType => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFollowingProgress(true, userId))
         await usersAPI.unfollowUsers(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
+            .then(data => {
+                if (data.resultCode === 0) {
                     dispatch(unfollowSuccess(userId))
                 }
                 dispatch(toggleIsFollowingProgress(false, userId))
