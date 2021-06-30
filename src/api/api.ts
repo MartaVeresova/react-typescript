@@ -44,14 +44,24 @@ export const usersAPI = {
         return instance.delete<CommonResponseType>(`follow/${userId}`)
             .then(res => res.data)
     },
-    getUserProfile(userId: string) {
-        return instance.get<ProfileType>(`profile/` + userId)
+}
+export const profileAPI = {
+    getProfile(userId: string) {
+        return instance.get<ProfileType>(`profile/${userId}`)
+            .then(res => res.data)
+    },
+    getStatus(userId: string) {
+        return instance.get<string>(`/profile/status/${userId}`)
+            .then(res => res.data)
+    },
+    updateStatus(status: string) {
+        return instance.put<CommonResponseType>(`/profile/status`, {status})
             .then(res => res.data)
     },
 }
 
 export const authAPI = {
-    getAuthUser() {
+    authMe() {
         return instance.get<CommonResponseType<GetAuthUserData>>(`auth/me`)
             .then(res => res.data)
     },

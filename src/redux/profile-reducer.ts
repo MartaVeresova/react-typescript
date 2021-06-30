@@ -3,11 +3,12 @@ import {ActionsTypes} from './store';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from './redux-store';
 import {Dispatch} from 'redux';
-import {usersAPI} from '../api/api';
+import {profileAPI} from '../api/api';
 
 export const ADD_POST = 'ADD-POST'
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 export const SET_USER_PROFILE = 'SET-USER-PROFILE'
+export const SET_STATUS = 'SET-STATUS'
 
 export const addPost = () => ({type: ADD_POST}) as const
 export const updateNewPostText = (newText: string) => {
@@ -17,6 +18,7 @@ export const updateNewPostText = (newText: string) => {
     } as const
 }
 export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile}) as const
+export const setStatus = (status: string) => ({type: SET_STATUS, status}) as const
 
 export type ProfileType = {
     aboutMe: string
@@ -53,12 +55,14 @@ const initialState = {
     ] as Array<PostType>,
     newPostText: '',
     profile: null as ProfileType | null,
+    status: '',
 }
 
 export type InitialStateType = {
     postsData: Array<PostType>
     newPostText: string
     profile: ProfileType | null,
+    status: string,
 }
 
 const profileReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -83,6 +87,11 @@ const profileReducer = (state: InitialStateType = initialState, action: ActionsT
                 ...state,
                 profile: action.profile
             }
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
+            }
         default:
             return state
     }
@@ -94,9 +103,31 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 export const getUserProfile = (userId: string): ThunkType => {
 
     return async (dispatch: Dispatch) => {
-        await usersAPI.getUserProfile(userId)
+        await profileAPI.getProfile(userId)
             .then(data => {
                 dispatch(setUserProfile(data))
+            })
+    }
+}
+
+export const getUserStatus = (userId: string): ThunkType => {
+
+    return async (dispatch: Dispatch) => {
+        await profileAPI.getStatus(userId)
+            .then(data => {
+                dispatch(setStatus(data))
+            })
+    }
+}
+
+export const updateUserStatus = (status: string): ThunkType => {
+
+    return async (dispatch: Dispatch) => {
+        await profileAPI.updateStatus(status)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(setStatus(status))
+                }
             })
     }
 }

@@ -54,6 +54,10 @@ type SetUserProfileType = {
     type: 'SET-USER-PROFILE'
     profile: ProfileType
 }
+type SetStatusType = {
+    type: 'SET-STATUS'
+    status: string
+}
 type AddMessageType = {
     type: 'ADD-MESSAGE'
 }
@@ -100,6 +104,7 @@ export type ActionsTypes =
     AddPostType
     | UpdateNewPostTextType
     | SetUserProfileType
+    | SetStatusType
     | AddMessageType
     | UpdateNewMessageTextType
     | FollowType
