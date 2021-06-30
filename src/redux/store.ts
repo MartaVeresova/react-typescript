@@ -45,10 +45,7 @@ type DialogItemType = {
 
 type AddPostType = {
     type: 'ADD-POST'
-}
-type UpdateNewPostTextType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
+    newPostText: string
 }
 type SetUserProfileType = {
     type: 'SET-USER-PROFILE'
@@ -60,10 +57,7 @@ type SetStatusType = {
 }
 type AddMessageType = {
     type: 'ADD-MESSAGE'
-}
-type UpdateNewMessageTextType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newText: string
+    newMessageText: string
 }
 type FollowType = {
     type: 'FOLLOW'
@@ -102,11 +96,9 @@ export type ToggleIsFollowingProgressType = {
 
 export type ActionsTypes =
     AddPostType
-    | UpdateNewPostTextType
     | SetUserProfileType
     | SetStatusType
     | AddMessageType
-    | UpdateNewMessageTextType
     | FollowType
     | UnfollowType
     | SetUsersType

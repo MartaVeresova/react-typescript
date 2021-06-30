@@ -65,4 +65,13 @@ export const authAPI = {
         return instance.get<CommonResponseType<GetAuthUserData>>(`auth/me`)
             .then(res => res.data)
     },
+    login(email: string, password: string, rememberMe: boolean, captcha: boolean) {
+        return instance.post<CommonResponseType<{ userId: string }>>(`/auth/login`, {
+            email,
+            password,
+            rememberMe,
+            captcha
+        })
+            .then(res => res.data)
+    }
 }

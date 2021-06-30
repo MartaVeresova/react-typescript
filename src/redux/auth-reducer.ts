@@ -55,5 +55,18 @@ export const getAuthUserData = (): ThunkType => {
     }
 }
 
+// export const login = (): ThunkType => {
+//
+//     return async (dispatch: Dispatch) => {
+//         await authAPI.login(email, password, rememberMe, captcha)
+//             .then(data => {
+//                 if (data.resultCode === 0) {
+//                     let {email, password, rememberMe, captcha} = data.data
+//                     dispatch(setAuthUserData(email, password, rememberMe, captcha))
+//                 }
+//             })
+//     }
+// }
+
 
 export default authReducer
