@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
+import React, {ChangeEvent} from 'react'
 
 type PropsType = {
     status: string
