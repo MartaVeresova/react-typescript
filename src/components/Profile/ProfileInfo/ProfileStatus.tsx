@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes} from 'react'
 
 type PropsType = {
     status: string
@@ -10,6 +10,13 @@ class ProfileStatus extends React.Component<PropsType> {
     state = {
         editMode: false,
         status: this.props.status
+    }
+
+    componentDidUpdate(prevProps: PropsType, prevState: any) {
+        if (prevProps.status !== this.props.status)
+            this.setState({
+                status: this.state.status
+            })
     }
 
     activateEditMode = () => {
