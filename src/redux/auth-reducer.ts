@@ -1,15 +1,10 @@
-import {Dispatch} from 'redux';
 import {authAPI} from '../api/api';
-import {ThunkAction} from 'redux-thunk';
-import { AppStateType} from './redux-store';
-import {ActionsTypes} from './store';
+import {AppThunk} from './redux-store';
 
 export const SET_USER_DATA = 'SET-USER-DATA'
 
-export const setAuthUserData = (userId: number, email: string, login: string) => ({
-    type: SET_USER_DATA,
-    data: {userId, email, login}
-}) as const
+export type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
+export type AuthActionsType = SetAuthUserDataActionType
 
 export type InitialStateType = {
     userId: number | null
@@ -25,7 +20,8 @@ const initialState = {
     isAuth: false
 }
 
-const authReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+
+const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
 
     switch (action.type) {
         case SET_USER_DATA:
@@ -40,18 +36,17 @@ const authReducer = (state: InitialStateType = initialState, action: ActionsType
     }
 }
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+export const setAuthUserData = (userId: number, email: string, login: string) => ({
+    type: SET_USER_DATA,
+    data: {userId, email, login}
+}) as const
 
-export const getAuthUserData = (): ThunkType => {
 
-    return async (dispatch: Dispatch) => {
-        await authAPI.authMe()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    let {id, email, login} = data.data
-                    dispatch(setAuthUserData(id, email, login))
-                }
-            })
+export const getAuthUserData = (): AppThunk => async dispatch => {
+    const data = await authAPI.authMe()
+    if (data.resultCode === 0) {
+        let {id, email, login} = data.data
+        dispatch(setAuthUserData(id, email, login))
     }
 }
 

@@ -1,14 +1,14 @@
 import {v1} from 'uuid';
-import {ProfileType} from './profile-reducer';
-import {UsersType} from './users-reducer';
-import {InitialStateType} from './auth-reducer';
+import profileReducer from './profile-reducer';
+import dialogsReducer from './dialogs-reducer';
+import sidebarReducer from './sidebar-reducer';
 
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: (state: RootStateType) => void
     subscribe: (observer: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionsTypes) => void
+    dispatch: (action: any) => void
 }
 
 export type RootStateType = {
@@ -41,72 +41,6 @@ type DialogItemType = {
     id: string
     name: string
 }
-
-
-type AddPostType = {
-    type: 'ADD-POST'
-    newPostText: string
-}
-type SetUserProfileType = {
-    type: 'SET-USER-PROFILE'
-    profile: ProfileType
-}
-type SetStatusType = {
-    type: 'SET-STATUS'
-    status: string
-}
-type AddMessageType = {
-    type: 'ADD-MESSAGE'
-    newMessageText: string
-}
-type FollowType = {
-    type: 'FOLLOW'
-    userId: string
-}
-type UnfollowType = {
-    type: 'UNFOLLOW'
-    userId: string
-}
-type SetUsersType = {
-    type: 'SET-USERS'
-    users: Array<UsersType>
-}
-type SetCurrentPageType = {
-    type: 'SET-CURRENT-PAGE'
-    currentPage: number
-}
-type SetTotalUsersCountType = {
-    type: 'SET-TOTAL-USERS-COUNT'
-    totalCount: number
-}
-type ToggleIsFetchingType = {
-    type: 'TOGGLE-IS-FETCHING'
-    isFetching: boolean
-}
-export type SetAuthUserDataType = {
-    type: 'SET-USER-DATA'
-    data: InitialStateType
-}
-export type ToggleIsFollowingProgressType = {
-    type: 'TOGGLE-IS-FOLLOWING-PROGRESS'
-    isFetching: boolean
-    userId: string
-}
-
-
-export type ActionsTypes =
-    AddPostType
-    | SetUserProfileType
-    | SetStatusType
-    | AddMessageType
-    | FollowType
-    | UnfollowType
-    | SetUsersType
-    | SetCurrentPageType
-    | SetTotalUsersCountType
-    | ToggleIsFetchingType
-    | SetAuthUserDataType
-    | ToggleIsFollowingProgressType
 
 
 export const store: StoreType = {
@@ -148,11 +82,11 @@ export const store: StoreType = {
 
     dispatch(action) { //{type: 'ADD-POST'} --- объект, в котором есть свойство type со значением строка
 
-        // this._state.profilePage = profileReducer(this._state.profilePage, action)
-        // this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        // this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-        //
-        // this._callSubscriber(this._state)
+        //this._state.profilePage = profileReducer(this._state.profilePage, action)
+        //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        //this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        //this._callSubscriber(this._state)
     }
 }
 
