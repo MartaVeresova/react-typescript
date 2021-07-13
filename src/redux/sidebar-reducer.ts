@@ -1,9 +1,10 @@
 export type SidebarActionsType = ReturnType<any>
-export type SidebarPageType = {}
+
 
 const initialState = {}
+export type InitialStateType = typeof initialState
 
-const sidebarReducer = (state: SidebarPageType = initialState, action: SidebarActionsType) => {
+const sidebarReducer = (state: InitialStateType = initialState, action: SidebarActionsType): InitialStateType => {
 
     return state
 }

@@ -12,25 +12,6 @@ const instance = axios.create({
 })
 
 
-type GetUsersType = {
-    items: UsersType[]
-    totalCount: number
-    error: string | null
-}
-
-type CommonResponseType<T = {}> = {
-    resultCode: number
-    fieldsErrors: string[]
-    messages: string[]
-    data: T
-}
-
-type GetAuthUserData = {
-    id: number
-    email: string
-    login: string
-}
-
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -74,4 +55,30 @@ export const authAPI = {
         })
             .then(res => res.data)
     }
+}
+
+//types
+export enum ResponseStatuses {
+    success = 0,
+    error = 1,
+    captcha = 10,
+}
+
+type GetUsersType = {
+    items: UsersType[]
+    totalCount: number
+    error: string | null
+}
+
+type CommonResponseType<T = {}> = {
+    resultCode: number
+    fieldsErrors: string[]
+    messages: string[]
+    data: T
+}
+
+type GetAuthUserData = {
+    id: number
+    email: string
+    login: string
 }
