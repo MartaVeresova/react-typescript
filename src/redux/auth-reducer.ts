@@ -13,6 +13,7 @@ const initialState = {
     userId: null as number | null,
     email: null as string | null,
     login: null as string | null,
+    captcha: false,
     isAuth: false
 }
 type InitialStateType = typeof initialState
@@ -23,8 +24,7 @@ const authReducer = (state: InitialStateType = initialState, action: AuthActions
         case 'SET-USER-DATA':
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
             }
 
         default:
@@ -33,8 +33,8 @@ const authReducer = (state: InitialStateType = initialState, action: AuthActions
 }
 
 //actions
-export const setAuthUserData = (userId: number, email: string, login: string) =>
-    ({type: 'SET-USER-DATA', data: {userId, email, login}} as const)
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, captcha: boolean, isAuth: boolean) =>
+    ({type: 'SET-USER-DATA', payload: {userId, email, login, captcha, isAuth}} as const)
 
 
 //thunks
@@ -42,22 +42,23 @@ export const getAuthUserData = (): AppThunk => async dispatch => {
     const data = await authAPI.authMe()
     if (data.resultCode === ResponseStatuses.success) {
         let {id, email, login} = data.data
-        dispatch(setAuthUserData(id, email, login))
+        dispatch(setAuthUserData(id, email, login, true, true))
     }
 }
 
-// export const login = (): ThunkType => {
-//
-//     return async (dispatch: Dispatch) => {
-//         await authAPI.login(email, password, rememberMe, captcha)
-//             .then(data => {
-//                 if (data.resultCode === 0) {
-//                     let {email, password, rememberMe, captcha} = data.data
-//                     dispatch(setAuthUserData(email, password, rememberMe, captcha))
-//                 }
-//             })
-//     }
-// }
+export const login = (email: string, password: string, rememberMe: boolean, captcha: boolean): AppThunk => async dispatch => {
+    const data = await authAPI.login(email, password, rememberMe, captcha)
+    if (data.resultCode === ResponseStatuses.success) {
+        dispatch(getAuthUserData())
+    }
+}
+
+export const logout = (): AppThunk => async dispatch => {
+    const data = await authAPI.logout()
+    if (data.resultCode === ResponseStatuses.success) {
+        dispatch(setAuthUserData(null, null, null, false, false))
+    }
+}
 
 
 //types

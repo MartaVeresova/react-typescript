@@ -46,7 +46,7 @@ export const authAPI = {
         return instance.get<CommonResponseType<GetAuthUserData>>(`auth/me`)
             .then(res => res.data)
     },
-    login(email: string, password: string, rememberMe: boolean, captcha: boolean) {
+    login(email: string, password: string, rememberMe: boolean = false, captcha: boolean) {
         return instance.post<CommonResponseType<{ userId: string }>>(`/auth/login`, {
             email,
             password,
@@ -54,7 +54,11 @@ export const authAPI = {
             captcha
         })
             .then(res => res.data)
-    }
+    },
+    logout() {
+        return instance.delete<CommonResponseType>(`/auth/login`)
+            .then(res => res.data)
+    },
 }
 
 //types
