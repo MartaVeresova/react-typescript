@@ -4,9 +4,7 @@ import {Field, InjectedFormProps} from 'redux-form';
 import s from '../Dialogs.module.css';
 import {Textarea} from '../../common/formsControls/FormsControls';
 
-export type FormDataType = {
-    newMessageText: string
-}
+
 const maxLength50 = maxLengthCreator(50)
 
 
@@ -27,4 +25,10 @@ export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props)
             </div>
         </form>
     )
+}
+
+
+//types
+export type FormDataType = {
+    newMessageText: string
 }

@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {AppThunk} from './redux-store';
+import {AppThunkType} from './redux-store';
 import {profileAPI} from '../api/api';
 
 
@@ -58,19 +58,19 @@ export const setStatus = (status: string) =>
 
 
 //thunks
-export const getUserProfile = (userId: string): AppThunk =>
+export const getUserProfile = (userId: string): AppThunkType =>
     async dispatch => {
         const data = await profileAPI.getProfile(userId)
         dispatch(setUserProfile(data))
     }
 
-export const getUserStatus = (userId: string): AppThunk =>
+export const getUserStatus = (userId: string): AppThunkType =>
     async dispatch => {
         const data = await profileAPI.getStatus(userId)
         dispatch(setStatus(data))
     }
 
-export const updateUserStatus = (status: string): AppThunk =>
+export const updateUserStatus = (status: string): AppThunkType =>
     async dispatch => {
         const data = await profileAPI.updateStatus(status)
         if (data.resultCode === 0) {

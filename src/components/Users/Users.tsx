@@ -4,17 +4,7 @@ import s from './Users.module.css';
 import {UsersType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
 
-type UsersPropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    users: Array<UsersType>
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    followingInProgress: string[]
-    toggleIsFollowingProgress: (isFetching: boolean, userId: string) => void
-}
+
 
 export function Users(props: UsersPropsType) {
 
@@ -36,26 +26,7 @@ export function Users(props: UsersPropsType) {
             {
                 props.users.map(u => {
                     const onClickFollow = () => props.follow(u.id)
-                    // props.toggleIsFollowingProgress(true, u.id)
-                    //
-                    // followAPI.followUsers(u.id)
-                    //     .then(data => {
-                    //         if (data.resultCode === 0) {
-                    //             props.follow(u.id)
-                    //         }
-                    //         props.toggleIsFollowingProgress(false, u.id)
-                    //     })
-
                     const onClickUnFollow = () => props.unfollow(u.id)
-                    // props.toggleIsFollowingProgress(true, u.id)
-                    // unfollowAPI.unfollowUsers(u.id)
-                    //     .then(data => {
-                    //         if (data.resultCode === 0) {
-                    //             props.unfollow(u.id)
-                    //         }
-                    //         props.toggleIsFollowingProgress(false, u.id)
-                    //     })
-
 
                     return (
                         <div key={u.id}>
@@ -93,4 +64,18 @@ export function Users(props: UsersPropsType) {
             }
         </div>
     )
+}
+
+
+//types
+type UsersPropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    users: Array<UsersType>
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
+    followingInProgress: string[]
+    toggleIsFollowingProgress: (isFetching: boolean, userId: string) => void
 }

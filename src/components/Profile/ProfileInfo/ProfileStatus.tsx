@@ -1,9 +1,6 @@
 import React, {ChangeEvent} from 'react'
 
-type PropsType = {
-    status: string
-    updateUserStatus: (status: string) => void
-}
+
 
 class ProfileStatus extends React.Component<PropsType> {
 
@@ -59,6 +56,13 @@ class ProfileStatus extends React.Component<PropsType> {
             </div>
         )
     }
+}
+
+
+//types
+type PropsType = {
+    status: string
+    updateUserStatus: (status: string) => void
 }
 
 export default ProfileStatus

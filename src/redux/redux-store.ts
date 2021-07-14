@@ -6,6 +6,7 @@ import sidebarReducer, {SidebarActionsType} from './sidebar-reducer';
 import usersReducer, {UsersActionsType} from './users-reducer';
 import authReducer, {AuthActionsType} from './auth-reducer';
 import {reducer as formReducer} from 'redux-form'
+import appReducer, {InitializedAppActionsType} from './app-reducer';
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
+    app: appReducer,
     form: formReducer,
 })
 
@@ -26,8 +28,9 @@ export type AppActionsType =
     | ProfileActionsType
     | SidebarActionsType
     | UsersActionsType
+    | InitializedAppActionsType
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType,
     AppStateType,
     unknown,
     AppActionsType>

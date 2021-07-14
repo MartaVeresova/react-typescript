@@ -1,5 +1,5 @@
 import {ResponseStatuses, usersAPI} from '../api/api';
-import {AppThunk} from './redux-store';
+import {AppThunkType} from './redux-store';
 
 
 // type InitialStateType = {
@@ -92,7 +92,7 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: string) =
 
 
 //thunks
-export const getUsers = (currentPage: number, pageSize: number): AppThunk =>
+export const getUsers = (currentPage: number, pageSize: number): AppThunkType =>
     async dispatch => {
         dispatch(toggleIsFetching(true))
         const data = await usersAPI.getUsers(currentPage, pageSize)
@@ -101,7 +101,7 @@ export const getUsers = (currentPage: number, pageSize: number): AppThunk =>
         dispatch(setTotalUsersCount(data.totalCount))
     }
 
-export const follow = (userId: string): AppThunk =>
+export const follow = (userId: string): AppThunkType =>
     async dispatch => {
         dispatch(toggleIsFollowingProgress(true, userId))
         const data = await usersAPI.followUsers(userId)
@@ -111,7 +111,7 @@ export const follow = (userId: string): AppThunk =>
         dispatch(toggleIsFollowingProgress(false, userId))
     }
 
-export const unfollow = (userId: string): AppThunk =>
+export const unfollow = (userId: string): AppThunkType =>
     async dispatch => {
         dispatch(toggleIsFollowingProgress(true, userId))
         const data = await usersAPI.unfollowUsers(userId)

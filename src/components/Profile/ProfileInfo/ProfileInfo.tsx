@@ -4,11 +4,7 @@ import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 
-type PropsType = {
-    profile: ProfileType | null
-    status: string
-    updateUserStatus: (status: string) => void
-}
+
 
 export function ProfileInfo(props: PropsType) {
     if (!props.profile) {
@@ -31,5 +27,13 @@ export function ProfileInfo(props: PropsType) {
             </div>
         </div>
     )
+}
+
+
+//types
+type PropsType = {
+    profile: ProfileType | null
+    status: string
+    updateUserStatus: (status: string) => void
 }
 

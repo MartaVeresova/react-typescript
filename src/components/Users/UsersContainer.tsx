@@ -11,27 +11,8 @@ import {AppStateType} from '../../redux/redux-store';
 import React, {ComponentType} from 'react';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
-import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
-
-type MapStateToPropsType = {
-    users: Array<UsersType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: string[]
-}
-type MapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setCurrentPage: (currentPage: number) => void
-    toggleIsFollowingProgress: (isFetching: boolean, userId: string) => void
-    getUsers: (currentPage: number, pageSize: number) => void
-}
-
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 
 class UsersContainer extends React.Component<UsersPropsType> {
@@ -81,5 +62,24 @@ export default compose<ComponentType>(
         toggleIsFollowingProgress,
         getUsers,
     }),
-    withAuthRedirect
+    //withAuthRedirect
 )(UsersContainer)
+
+
+//types
+type MapStateToPropsType = {
+    users: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: string[]
+}
+type MapDispatchToPropsType = {
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
+    setCurrentPage: (currentPage: number) => void
+    toggleIsFollowingProgress: (isFetching: boolean, userId: string) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+}
+export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType

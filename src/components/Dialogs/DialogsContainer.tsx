@@ -7,15 +7,6 @@ import {compose} from 'redux';
 import {ComponentType} from 'react';
 
 
-type MapStateToPropsType = {
-    stateDialogsPage: InitialStateType
-}
-
-type MapDispatchToPropsType = {
-    addMessage: (newMessageText: string) => void
-}
-export type DialogsType = MapStateToPropsType & MapDispatchToPropsType
-
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         stateDialogsPage: state.dialogsPage,
@@ -26,3 +17,14 @@ export const DialogsContainer = compose<ComponentType>(
     connect(mapStateToProps, {addMessage,}),
     withAuthRedirect
 )(Dialogs)
+
+
+//types
+type MapStateToPropsType = {
+    stateDialogsPage: InitialStateType
+}
+
+type MapDispatchToPropsType = {
+    addMessage: (newMessageText: string) => void
+}
+export type DialogsType = MapStateToPropsType & MapDispatchToPropsType

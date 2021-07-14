@@ -8,19 +8,6 @@ import {AppStateType} from '../../redux/redux-store';
 import {Redirect} from 'react-router-dom';
 import s from '../common/formsControls/FormsControls.module.css'
 
-// type FormDataType = {
-//     email: string | null
-//     password: string | null
-//     rememberMe: boolean | null
-//     captcha: boolean | null
-// }
-type FormDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: boolean
-}
-
 
 const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) => {
     const onSubmit = (formData: FormDataType) => {
@@ -36,6 +23,7 @@ const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) =>
         </div>
     )
 }
+
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
@@ -74,6 +62,20 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
 
 const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
 
+
+const MapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+    captcha: state.auth.captcha,
+    isAuth: state.auth.isAuth
+})
+
+
+//types
+type FormDataType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: boolean
+}
 type MapStateToPropsType = {
     captcha: boolean | null
     isAuth: boolean
@@ -82,9 +84,5 @@ type MapDispatchToPropsType = {
     login: (email: string, password: string, rememberMe: boolean, captcha: boolean) => void
 }
 
-const MapStateToProps = (state: AppStateType): MapStateToPropsType => ({
-    captcha: state.auth.captcha,
-    isAuth: state.auth.isAuth
-})
 
 export default connect(MapStateToProps, {login})(Login)
