@@ -1,5 +1,6 @@
 import {authAPI, ResponseStatuses} from '../api/api';
 import {AppThunk} from './redux-store';
+import {stopSubmit} from 'redux-form';
 
 
 // export type InitialStateType = {
@@ -50,6 +51,12 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     const data = await authAPI.login(email, password, rememberMe, captcha)
     if (data.resultCode === ResponseStatuses.success) {
         dispatch(getAuthUserData())
+    } else {
+        if (data.messages.length) {
+            dispatch(stopSubmit('login', {_error: data.messages[0]}))
+        } else {
+            dispatch(stopSubmit('login', {_error: 'Some error'}))
+        }
     }
 }
 

@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {login} from '../../redux/auth-reducer';
 import {AppStateType} from '../../redux/redux-store';
 import {Redirect} from 'react-router-dom';
+import s from '../common/formsControls/FormsControls.module.css'
 
 // type FormDataType = {
 //     email: string | null
@@ -36,7 +37,7 @@ const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) =>
     )
 }
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
             <div>
@@ -63,6 +64,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) =>
                     component={Input}
                 /> remember me
             </div>
+            {error && <div className={s.formSummaryError}>{error}</div>}
             <div>
                 <button>Login</button>
             </div>
