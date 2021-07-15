@@ -2,15 +2,6 @@ import {ResponseStatuses, usersAPI} from '../api/api';
 import {AppThunkType} from './redux-store';
 
 
-// type InitialStateType = {
-//     users: Array<UsersType>
-//     pageSize: number
-//     totalUsersCount: number
-//     currentPage: number
-//     isFetching: boolean
-//     followingInProgress: string[]
-// }
-
 const initialState = {
     users: [] as Array<UsersType>,
     pageSize: 5,
@@ -92,10 +83,11 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: string) =
 
 
 //thunks
-export const getUsers = (currentPage: number, pageSize: number): AppThunkType =>
+export const requestUsers = (page: number, pageSize: number): AppThunkType =>
     async dispatch => {
         dispatch(toggleIsFetching(true))
-        const data = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(setCurrentPage(page))
+        const data = await usersAPI.getUsers(page, pageSize)
         dispatch(toggleIsFetching(false))
         dispatch(setUsers(data.items))
         dispatch(setTotalUsersCount(data.totalCount))
@@ -154,7 +146,6 @@ export type UsersActionsType =
     | SetTotalUsersCountActionType
     | ToggleIsFetchingActionType
     | ToggleIsFollowingProgressActionType
-
 
 
 export default usersReducer
