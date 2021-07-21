@@ -1,10 +1,15 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 
 
 export const ProfileStatusWithHooks = ({status, updateUserStatus}: PropsType) => {
 
     const [editMode, setEditMode] = useState(false)
     const [statusValue, setStatusValue] = useState(status)
+
+    useEffect(() => {
+        setStatusValue(status)
+    }, [status])
+
 
     const activateEditMode = () => {
         setEditMode(true)
