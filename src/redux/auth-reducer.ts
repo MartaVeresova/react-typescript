@@ -8,9 +8,9 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     captcha: false,
-    isAuth: false
+    isAuth: false,
 }
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
