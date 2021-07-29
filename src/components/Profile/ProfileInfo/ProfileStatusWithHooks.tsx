@@ -16,7 +16,7 @@ export const ProfileStatusWithHooks = ({status, updateUserStatus}: PropsType) =>
     }
     const deactivateEditMode = () => {
         setEditMode(false)
-        updateUserStatus(status)
+        updateUserStatus(statusValue)
     }
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatusValue(e.currentTarget.value)

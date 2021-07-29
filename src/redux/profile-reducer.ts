@@ -1,13 +1,7 @@
 import {v1} from 'uuid';
-import {AppThunkType} from './redux-store';
+import {AppThunkType} from './store';
 import {profileAPI} from '../api/api';
 
-
-// export type InitialStateType = {
-//     postsData: Array<PostType>
-//     profile: ProfileType | null,
-//     status: string,
-// }
 
 const initialState = {
     postsData: [
@@ -20,10 +14,10 @@ const initialState = {
 export type InitialStateType = typeof initialState
 
 
-const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
 
     switch (action.type) {
-        case 'ADD-POST':
+        case 'profilePage/ADD-POST':
             return {
                 ...state,
                 postsData: [
@@ -31,12 +25,12 @@ const profileReducer = (state: InitialStateType = initialState, action: ProfileA
                     {id: v1(), message: action.newPostText, likesCount: 0}
                 ],
             }
-        case 'SET-USER-PROFILE':
+        case 'profilePage/SET-USER-PROFILE':
             return {
                 ...state,
                 profile: action.profile
             }
-        case 'SET-STATUS':
+        case 'profilePage/SET-STATUS':
             return {
                 ...state,
                 status: action.status
@@ -48,13 +42,13 @@ const profileReducer = (state: InitialStateType = initialState, action: ProfileA
 
 //actions
 export const addPost = (newPostText: string) =>
-    ({type: 'ADD-POST', newPostText} as const)
+    ({type: 'profilePage/ADD-POST', newPostText} as const)
 
 export const setUserProfile = (profile: ProfileType) =>
-    ({type: 'SET-USER-PROFILE', profile} as const)
+    ({type: 'profilePage/SET-USER-PROFILE', profile} as const)
 
 export const setStatus = (status: string) =>
-    ({type: 'SET-STATUS', status} as const)
+    ({type: 'profilePage/SET-STATUS', status} as const)
 
 
 //thunks
@@ -115,7 +109,3 @@ export type ProfileActionsType =
     | AddPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
-
-
-
-export default profileReducer

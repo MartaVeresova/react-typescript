@@ -1,93 +1,39 @@
-import {v1} from 'uuid';
-import profileReducer from './profile-reducer';
-import dialogsReducer from './dialogs-reducer';
-import sidebarReducer from './sidebar-reducer';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import thunkMiddleware, {ThunkAction} from 'redux-thunk'
+import {ProfileActionsType, profileReducer} from './profile-reducer';
+import {DialogsActionsType, dialogsReducer} from './dialogs-reducer';
+import {SidebarActionsType, sidebarReducer} from './sidebar-reducer';
+import {UsersActionsType, usersReducer} from './users-reducer';
+import {AuthActionsType, authReducer} from './auth-reducer';
+import {reducer as formReducer} from 'redux-form'
+import {appReducer, InitializedAppActionsType} from './app-reducer';
 
-export type StoreType = {
-    _state: RootStateType
-    _callSubscriber: (state: RootStateType) => void
-    subscribe: (observer: () => void) => void
-    getState: () => RootStateType
-    dispatch: (action: any) => void
-}
+const rootReducer = combineReducers({
+    profilePage: profileReducer,
+    dialogsPage: dialogsReducer,
+    sidebar: sidebarReducer,
+    usersPage: usersReducer,
+    auth: authReducer,
+    app: appReducer,
+    form: formReducer,
+})
 
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarPageType
+export type AppStateType = ReturnType<typeof rootReducer>
 
-}
-export type SidebarPageType = {}
-type ProfilePageType = {
-    postsData: Array<PostType>
-    newPostText: string
-    profile: any
-}
-type PostType = {
-    id?: string
-    message: string
-    likesCount: number
-}
-type DialogsPageType = {
-    dialogsData: Array<DialogItemType>
-    messagesData: Array<MessageItemType>
-    newMessageText: string
-}
-type MessageItemType = {
-    id?: string
-    messageContent: string
-}
-type DialogItemType = {
-    id: string
-    name: string
-}
+export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
+export type AppActionsType =
+    | AuthActionsType
+    | DialogsActionsType
+    | ProfileActionsType
+    | SidebarActionsType
+    | UsersActionsType
+    | InitializedAppActionsType
 
-export const store: StoreType = {
-    _state: {
-        profilePage: {
-            postsData: [
-                {id: v1(), message: 'Hello', likesCount: 11},
-                {id: v1(), message: 'Buy', likesCount: 15},
-            ],
-            newPostText: '',
-            profile: null
-        },
-        dialogsPage: {
-            dialogsData: [
-                {id: v1(), name: 'Marta'},
-                {id: v1(), name: 'Sasha'},
-                {id: v1(), name: 'Vera'},
-                {id: v1(), name: 'Anton'},
-                {id: v1(), name: 'Vanya'},
-            ],
-            messagesData: [
-                {id: v1(), messageContent: 'Hello'},
-                {id: v1(), messageContent: 'How are you?'},
-                {id: v1(), messageContent: 'Yo'},
-            ],
-            newMessageText: ''
-        },
-        sidebar: {}
-    },
-    _callSubscriber() {
-        console.log('state changed')
-    },
-    subscribe(observer) {
-        this._callSubscriber = observer
-    },
-    getState() {
-        return this._state
-    },
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType,
+    AppStateType,
+    unknown,
+    AppActionsType>
 
-    dispatch(action) { //{type: 'ADD-POST'} --- объект, в котором есть свойство type со значением строка
-
-        //this._state.profilePage = profileReducer(this._state.profilePage, action)
-        //this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        //this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-
-        //this._callSubscriber(this._state)
-    }
-}
-
-//store OOP
+//@ts-ignore
+window.store = store

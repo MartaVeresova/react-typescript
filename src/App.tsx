@@ -13,7 +13,7 @@ import Login from './components/Login/Login';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer';
-import {AppStateType} from './redux/redux-store';
+import {AppStateType} from './redux/store';
 import {Preloader} from './components/common/Preloader/Preloader';
 
 

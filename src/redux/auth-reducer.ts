@@ -1,5 +1,5 @@
 import {authAPI, ResponseStatuses} from '../api/api';
-import {AppThunkType} from './redux-store';
+import {AppThunkType} from './store';
 import {stopSubmit} from 'redux-form';
 
 
@@ -12,15 +12,15 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
+
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
 
     switch (action.type) {
-        case 'SET-USER-DATA':
+        case 'auth/SET-USER-DATA':
             return {
                 ...state,
                 ...action.payload,
             }
-
         default:
             return state
     }
@@ -28,7 +28,7 @@ const authReducer = (state: InitialStateType = initialState, action: AuthActions
 
 //actions
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, captcha: boolean, isAuth: boolean) =>
-    ({type: 'SET-USER-DATA', payload: {userId, email, login, captcha, isAuth}} as const)
+    ({type: 'auth/SET-USER-DATA', payload: {userId, email, login, captcha, isAuth}} as const)
 
 
 //thunks
@@ -65,6 +65,3 @@ export const logout = (): AppThunkType => async dispatch => {
 //types
 export type SetAuthUserDataActionType = ReturnType<typeof setAuthUserData>
 export type AuthActionsType = SetAuthUserDataActionType
-
-
-export default authReducer
