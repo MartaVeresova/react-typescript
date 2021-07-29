@@ -7,6 +7,8 @@ const initialState = {
     postsData: [
         {id: v1(), message: 'Hello', likesCount: 11},
         {id: v1(), message: 'Buy', likesCount: 15},
+        {id: v1(), message: 'How are you?', likesCount: 7},
+        {id: v1(), message: 'I am fine, and you?', likesCount: 5},
     ] as Array<PostType>,
     profile: null as ProfileType | null,
     status: '',
@@ -35,6 +37,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
                 ...state,
                 status: action.status
             }
+        case 'profilePage/REMOVE-POST':
+            return {
+                ...state,
+                postsData: [
+                    ...state.postsData.filter(p => p.id !== action.postId)
+                ],
+            }
         default:
             return state
     }
@@ -44,11 +53,14 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 export const addPost = (newPostText: string) =>
     ({type: 'profilePage/ADD-POST', newPostText} as const)
 
-export const setUserProfile = (profile: ProfileType) =>
+export const setUserProfile = (profile: ProfileType | null) =>
     ({type: 'profilePage/SET-USER-PROFILE', profile} as const)
 
 export const setStatus = (status: string) =>
     ({type: 'profilePage/SET-STATUS', status} as const)
+
+export const removePost = (postId: string) =>
+    ({type: 'profilePage/REMOVE-POST', postId} as const)
 
 
 //thunks
@@ -104,8 +116,10 @@ export type PostType = {
 export type AddPostActionType = ReturnType<typeof addPost>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetStatusActionType = ReturnType<typeof setStatus>
+export type RemovePostActionType = ReturnType<typeof removePost>
 
 export type ProfileActionsType =
     | AddPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
+    | RemovePostActionType
