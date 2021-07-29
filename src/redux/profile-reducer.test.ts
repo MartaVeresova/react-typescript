@@ -76,13 +76,13 @@ test('status profile should be set the state', () => {
 });
 
 test('correct post should be removed', () => {
-    const action = removePost('3');
+    const action = removePost('1');
 
     const endState = profileReducer(startState, action)
 
     expect(endState.postsData.length).toBe(3);
     expect(endState.postsData[3]).toBeUndefined();
-    expect(endState.postsData[1].message).toBe('Buy');
-    expect(endState.postsData[0].id).toBe('1');
+    expect(endState.postsData[0].message).toBe('Buy');
+    expect(endState.postsData[0].id).toBe('2');
     expect(endState.postsData[2].id).toBe('4');
 });

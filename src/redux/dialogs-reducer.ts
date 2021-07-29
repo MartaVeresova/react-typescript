@@ -29,6 +29,13 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: D
                     {id: v1(), messageContent: action.newMessageText}
                 ],
             }
+        case 'dialogsPage/REMOVE-MESSAGE':
+            return {
+                ...state,
+                messagesData: [
+                    ...state.messagesData.filter(m => m.id !== action.messageId)
+                ],
+            }
         default:
             return state
     }
@@ -37,6 +44,9 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: D
 //actions
 export const addMessage = (newMessageText: string) =>
     ({type: 'dialogsPage/ADD-MESSAGE', newMessageText} as const)
+
+export const removeMessage = (messageId: string) =>
+    ({type: 'dialogsPage/REMOVE-MESSAGE', messageId} as const)
 
 
 //types
@@ -50,4 +60,7 @@ export type DialogItemType = {
 }
 
 export type AddMessageActionType = ReturnType<typeof addMessage>
-export type DialogsActionsType = AddMessageActionType
+export type RemoveMessageActionType = ReturnType<typeof removeMessage>
+export type DialogsActionsType =
+    | AddMessageActionType
+    | RemoveMessageActionType
