@@ -44,13 +44,13 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case 'usersPage/TOGGLE-IS-FETCHING':
             return {
                 ...state,
-                isFetching: action.isFetching
+                isFetching: action.value
             }
         case 'usersPage/TOGGLE-IS-FOLLOWING-PROGRESS':
             return {
                 ...state,
                 followingInProgress:
-                    action.isFetching
+                    action.inProgress
                         ? [...state.followingInProgress, action.userId]
                         : state.followingInProgress.filter(id => id !== action.userId)
             }
@@ -75,11 +75,11 @@ export const setCurrentPage = (currentPage: number) =>
 export const setTotalUsersCount = (totalCount: number) =>
     ({type: 'usersPage/SET-TOTAL-USERS-COUNT', totalCount} as const)
 
-export const toggleIsFetching = (isFetching: boolean) =>
-    ({type: 'usersPage/TOGGLE-IS-FETCHING', isFetching} as const)
+export const toggleIsFetching = (value: boolean) =>
+    ({type: 'usersPage/TOGGLE-IS-FETCHING', value} as const)
 
-export const toggleIsFollowingProgress = (isFetching: boolean, userId: string) =>
-    ({type: 'usersPage/TOGGLE-IS-FOLLOWING-PROGRESS', isFetching, userId} as const)
+export const toggleIsFollowingProgress = (inProgress: boolean, userId: string) =>
+    ({type: 'usersPage/TOGGLE-IS-FOLLOWING-PROGRESS', inProgress, userId} as const)
 
 
 //thunks

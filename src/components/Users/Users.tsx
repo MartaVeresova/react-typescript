@@ -5,7 +5,6 @@ import {UsersType} from '../../redux/users-reducer';
 import {NavLink} from 'react-router-dom';
 
 
-
 export function Users(props: UsersPropsType) {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -14,14 +13,21 @@ export function Users(props: UsersPropsType) {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+    console.log(props.followingInProgress)
 
     return (
         <div>
             <div>
-                {pages.map(p => {
-                    return <span className={props.currentPage === p ? s.selectedPage : ''}
-                                 onClick={(e) => props.onPageChanged(p)}>{p}</span>
-                })}
+                {
+                    pages.map(p => {
+                        return (
+                            <span key={p} className={props.currentPage === p ? s.selectedPage : ''}
+                                  onClick={e => props.onPageChanged(p)}>
+                                {p}
+                            </span>
+                        )
+                    })
+                }
             </div>
             {
                 props.users.map(u => {
@@ -38,12 +44,14 @@ export function Users(props: UsersPropsType) {
                             </NavLink>
                         </div>
                         <div>
-                            {u.followed
-                                ?
-                                <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                        onClick={onClickUnFollow}>unFollow</button>
-                                : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                          onClick={onClickFollow}>follow</button>}
+                            {
+                                u.followed
+                                    ?
+                                    <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                            onClick={onClickUnFollow}>unFollow</button>
+                                    : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                              onClick={onClickFollow}>follow</button>
+                            }
                         </div>
                     </span>
                             <span>
