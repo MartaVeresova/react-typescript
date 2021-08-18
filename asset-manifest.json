@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/react-typescript/static/css/main.a0cfcf1e.chunk.css",
-    "main.js": "/react-typescript/static/js/main.90408181.chunk.js",
-    "main.js.map": "/react-typescript/static/js/main.90408181.chunk.js.map",
-    "runtime-main.js": "/react-typescript/static/js/runtime-main.4cb9ef07.js",
-    "runtime-main.js.map": "/react-typescript/static/js/runtime-main.4cb9ef07.js.map",
-    "static/js/2.0a2daf8e.chunk.js": "/react-typescript/static/js/2.0a2daf8e.chunk.js",
-    "static/js/2.0a2daf8e.chunk.js.map": "/react-typescript/static/js/2.0a2daf8e.chunk.js.map",
-    "static/js/3.747283f1.chunk.js": "/react-typescript/static/js/3.747283f1.chunk.js",
-    "static/js/3.747283f1.chunk.js.map": "/react-typescript/static/js/3.747283f1.chunk.js.map",
+    "main.js": "/react-typescript/static/js/main.b0fa1484.chunk.js",
+    "main.js.map": "/react-typescript/static/js/main.b0fa1484.chunk.js.map",
+    "runtime-main.js": "/react-typescript/static/js/runtime-main.3e14b307.js",
+    "runtime-main.js.map": "/react-typescript/static/js/runtime-main.3e14b307.js.map",
+    "static/js/2.0656d1e3.chunk.js": "/react-typescript/static/js/2.0656d1e3.chunk.js",
+    "static/js/2.0656d1e3.chunk.js.map": "/react-typescript/static/js/2.0656d1e3.chunk.js.map",
+    "static/js/3.64892eaf.chunk.js": "/react-typescript/static/js/3.64892eaf.chunk.js",
+    "static/js/3.64892eaf.chunk.js.map": "/react-typescript/static/js/3.64892eaf.chunk.js.map",
     "index.html": "/react-typescript/index.html",
     "static/css/main.a0cfcf1e.chunk.css.map": "/react-typescript/static/css/main.a0cfcf1e.chunk.css.map",
-    "static/js/2.0a2daf8e.chunk.js.LICENSE.txt": "/react-typescript/static/js/2.0a2daf8e.chunk.js.LICENSE.txt",
+    "static/js/2.0656d1e3.chunk.js.LICENSE.txt": "/react-typescript/static/js/2.0656d1e3.chunk.js.LICENSE.txt",
     "static/media/Logo_header.8aaf41b6.png": "/react-typescript/static/media/Logo_header.8aaf41b6.png",
     "static/media/preloader.5665744c.svg": "/react-typescript/static/media/preloader.5665744c.svg",
     "static/media/user.4409fc97.png": "/react-typescript/static/media/user.4409fc97.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.4cb9ef07.js",
-    "static/js/2.0a2daf8e.chunk.js",
+    "static/js/runtime-main.3e14b307.js",
+    "static/js/2.0656d1e3.chunk.js",
     "static/css/main.a0cfcf1e.chunk.css",
-    "static/js/main.90408181.chunk.js"
+    "static/js/main.b0fa1484.chunk.js"
   ]
 }
