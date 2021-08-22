@@ -1,5 +1,5 @@
 import {maxLengthCreator, requiredField} from '../../../utils/validators/validators';
-import React from 'react';
+import React, {FC} from 'react';
 import {Field, InjectedFormProps} from 'redux-form';
 import {Textarea} from '../../common/formsControls/FormsControls';
 import s from './MyPosts.module.css';
@@ -10,11 +10,11 @@ export type FormDataType = {
 const maxLength10 = maxLengthCreator(10)
 
 
-export const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+export const AddPostForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit}) => {
 
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <Field
                     placeholder='enter text'

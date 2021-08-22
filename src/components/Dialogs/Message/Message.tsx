@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {FC} from 'react'
 import s from './Message.module.css'
 import {MessageItemType} from '../../../redux/dialogs-reducer';
 
 
-export function Message(props: MessageItemType) {
+export const Message: FC<MessageItemType> = ({messageContent}) => {
 
     return (
-        <div className={s.message}>{props.messageContent}</div>
+        <div className={s.message}>{messageContent}</div>
     )
 }

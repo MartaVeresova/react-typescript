@@ -1,75 +1,28 @@
-import React from 'react';
-import userPhoto from '../../assets/images/user.png';
-import s from './Users.module.css';
+import React, {FC} from 'react';
 import {UsersType} from '../../redux/users-reducer';
-import {NavLink} from 'react-router-dom';
+import {Pagination} from '../common/pagination/Pagination';
+import {User} from './User';
 
 
-export function Users(props: UsersPropsType) {
+export const Users: FC<UsersPropsType> = (props) => {
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-    console.log(props.followingInProgress)
+    const {totalUsersCount, users, currentPage, pageSize, followingInProgress, follow, onPageChanged, unfollow} = props
 
     return (
         <div>
+            <Pagination currentPage={currentPage}
+                        onPageChanged={onPageChanged}
+                        pageSize={pageSize}
+                        totalUsersCount={totalUsersCount}/>
             <div>
                 {
-                    pages.map(p => {
-                        return (
-                            <span key={p} className={props.currentPage === p ? s.selectedPage : ''}
-                                  onClick={e => props.onPageChanged(p)}>
-                                {p}
-                            </span>
-                        )
-                    })
+                    users.map(user => <User key={user.id}
+                                            user={user}
+                                            followingInProgress={followingInProgress}
+                                            follow={follow}
+                                            unfollow={unfollow}/>)
                 }
             </div>
-            {
-                props.users.map(u => {
-                    const onClickFollow = () => props.follow(u.id)
-                    const onClickUnFollow = () => props.unfollow(u.id)
-
-                    return (
-                        <div key={u.id}>
-                    <span>
-                        <div>
-                            <NavLink to={'/profile/' + u.id}>
-                                <img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                     className={s.userPhoto} alt={''}/>
-                            </NavLink>
-                        </div>
-                        <div>
-                            {
-                                u.followed
-                                    ?
-                                    <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                            onClick={onClickUnFollow}>unFollow</button>
-                                    : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                              onClick={onClickFollow}>follow</button>
-                            }
-                        </div>
-                    </span>
-                            <span>
-                        <div>
-                            {u.name}
-                        </div>
-                        <div>
-                            {u.status}
-                        </div>
-                    </span>
-                            <span>
-                            <div>{'u.location.country'}</div>
-                            <div>{'u.location.city'}</div>
-                    </span>
-                        </div>
-                    )
-                })
-            }
         </div>
     )
 }

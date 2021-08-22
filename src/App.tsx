@@ -1,4 +1,4 @@
-import React, {ComponentType} from 'react'
+import React, {Component, ComponentType} from 'react'
 import s from './App.module.css'
 import {Navbar} from './components/Navbar/Navbar'
 import {News} from './components/News/News';
@@ -17,7 +17,7 @@ import {AppStateType} from './redux/store';
 import {Preloader} from './components/common/Preloader/Preloader';
 
 
-class App extends React.Component<AppPropsType> {
+class App extends Component<AppPropsType> {
     componentDidMount() {
         this.props.initializeApp()
     }

@@ -1,4 +1,4 @@
-import React, {ComponentType} from 'react'
+import React, {Component, ComponentType} from 'react'
 import s from './Profile.module.css'
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
@@ -9,18 +9,19 @@ import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 
 
-class ProfileContainer extends React.Component<PropsType> {
+class ProfileContainer extends Component<PropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
+        const {match, authorizedUserId, history, getUserProfile, getUserStatus} = this.props
+        let userId = match.params.userId
         if (!userId) {
-            userId = JSON.stringify(this.props.authorizedUserId)
+            userId = JSON.stringify(authorizedUserId)
             if (!userId) {
-                this.props.history.push('/login')
+                history.push('/login')
             }
         }
-        this.props.getUserProfile(userId)
-        this.props.getUserStatus(userId)
+        getUserProfile(userId)
+        getUserStatus(userId)
     }
 
     render() {

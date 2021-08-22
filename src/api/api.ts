@@ -7,7 +7,7 @@ const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
-        'API-KEY': '56cc9d09-6ac5-48a7-98d1-6f7ea21ef704',
+        'API-KEY': 'a53e0f65-c3ac-4834-99fc-a88db669947f',
     },
 })
 
@@ -15,36 +15,29 @@ const instance = axios.create({
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
-            .then(res => res.data)
     },
     followUsers(userId: string) {
         return instance.post<CommonResponseType>(`follow/${userId}`)
-            .then(res => res.data)
     },
     unfollowUsers(userId: string) {
         return instance.delete<CommonResponseType>(`follow/${userId}`)
-            .then(res => res.data)
     },
 }
 export const profileAPI = {
     getProfile(userId: string) {
         return instance.get<ProfileType>(`profile/${userId}`)
-            .then(res => res.data)
     },
     getStatus(userId: string) {
         return instance.get<string>(`/profile/status/${userId}`)
-            .then(res => res.data)
     },
     updateStatus(status: string) {
         return instance.put<CommonResponseType>(`/profile/status`, {status})
-            .then(res => res.data)
     },
 }
 
 export const authAPI = {
     authMe() {
         return instance.get<CommonResponseType<GetAuthUserData>>(`auth/me`)
-            .then(res => res.data)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: boolean) {
         return instance.post<CommonResponseType<{ userId: string }>>(`/auth/login`, {
@@ -53,11 +46,9 @@ export const authAPI = {
             rememberMe,
             captcha
         })
-            .then(res => res.data)
     },
     logout() {
         return instance.delete<CommonResponseType>(`/auth/login`)
-            .then(res => res.data)
     },
 }
 
@@ -74,7 +65,7 @@ type GetUsersType = {
     error: string | null
 }
 
-type CommonResponseType<T = {}> = {
+export type CommonResponseType<T = {}> = {
     resultCode: number
     fieldsErrors: string[]
     messages: string[]

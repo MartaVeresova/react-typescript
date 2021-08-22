@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './Settings.module.css'
 
 
-export function Settings() {
+export const Settings: FC = () => {
     return (
         <div className={s.settings}>
             Settings

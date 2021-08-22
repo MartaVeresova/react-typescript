@@ -1,5 +1,6 @@
 import {ResponseStatuses, usersAPI} from '../api/api';
 import {AppThunkType} from './store';
+import {Dispatch} from 'redux';
 
 
 const initialState = {
@@ -19,11 +20,13 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case 'usersPage/FOLLOW':
             return {
                 ...state,
+                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         case 'usersPage/UNFOLLOW':
             return {
                 ...state,
+                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
                 users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         case 'usersPage/SET-USERS':
@@ -87,30 +90,31 @@ export const requestUsers = (page: number, pageSize: number): AppThunkType =>
     async dispatch => {
         dispatch(toggleIsFetching(true))
         dispatch(setCurrentPage(page))
-        const data = await usersAPI.getUsers(page, pageSize)
+        const res = await usersAPI.getUsers(page, pageSize)
         dispatch(toggleIsFetching(false))
-        dispatch(setUsers(data.items))
-        dispatch(setTotalUsersCount(data.totalCount))
+        dispatch(setUsers(res.data.items))
+        dispatch(setTotalUsersCount(res.data.totalCount))
     }
+
+const _followUnfollowFlow = async (dispatch: Dispatch<UsersActionsType>, userId: string, apiMethod: any, actionCreator: (userId: string) => FollowSuccessActionType | UnfollowSuccessActionType) => {
+    dispatch(toggleIsFollowingProgress(true, userId))
+    const res = await apiMethod(userId)
+    if (res.data.resultCode === ResponseStatuses.success) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(toggleIsFollowingProgress(false, userId))
+}
 
 export const follow = (userId: string): AppThunkType =>
     async dispatch => {
-        dispatch(toggleIsFollowingProgress(true, userId))
-        const data = await usersAPI.followUsers(userId)
-        if (data.resultCode === ResponseStatuses.success) {
-            dispatch(followSuccess(userId))
-        }
-        dispatch(toggleIsFollowingProgress(false, userId))
+        const apiMethod = usersAPI.followUsers.bind(usersAPI)
+        _followUnfollowFlow(dispatch, userId, apiMethod, followSuccess)
     }
 
 export const unfollow = (userId: string): AppThunkType =>
     async dispatch => {
-        dispatch(toggleIsFollowingProgress(true, userId))
-        const data = await usersAPI.unfollowUsers(userId)
-        if (data.resultCode === ResponseStatuses.success) {
-            dispatch(unfollowSuccess(userId))
-        }
-        dispatch(toggleIsFollowingProgress(false, userId))
+        const apiMethod = usersAPI.unfollowUsers.bind(usersAPI)
+        _followUnfollowFlow(dispatch, userId, apiMethod, unfollowSuccess)
     }
 
 //types

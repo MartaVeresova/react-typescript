@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from './Message/Message';
 import {DialogItem} from './DialogItem/DialogItem';
@@ -7,18 +7,18 @@ import {reduxForm} from 'redux-form';
 import {AddMessageForm, FormDataType} from './Message/AddMessageForm';
 
 
-export function Dialogs(props: DialogsType) {
+export const Dialogs: FC<DialogsType> = ({stateDialogsPage, addMessage}) => {
 
-    const dialogsElements = props.stateDialogsPage.dialogsData.map(d => <DialogItem
+    const dialogsElements = stateDialogsPage.dialogsData.map(d => <DialogItem
         key={d.id} name={d.name}
         id={d.id}/>)
-    const messagesElements = props.stateDialogsPage.messagesData.map(m => <Message
+    const messagesElements = stateDialogsPage.messagesData.map(m => <Message
         key={m.id}
         messageContent={m.messageContent}/>)
 
 
     const onClickAddMessage = (formData: FormDataType) => {
-        props.addMessage(formData.newMessageText)
+        addMessage(formData.newMessageText)
     }
 
 

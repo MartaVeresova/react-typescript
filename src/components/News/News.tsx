@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './News.module.css'
 
 
-export function News() {
+export const News: FC = () => {
     return (
         <div className={s.news}>
             News

@@ -66,20 +66,20 @@ export const removePost = (postId: string) =>
 //thunks
 export const getUserProfile = (userId: string): AppThunkType =>
     async dispatch => {
-        const data = await profileAPI.getProfile(userId)
-        dispatch(setUserProfile(data))
+        const res = await profileAPI.getProfile(userId)
+        dispatch(setUserProfile(res.data))
     }
 
 export const getUserStatus = (userId: string): AppThunkType =>
     async dispatch => {
-        const data = await profileAPI.getStatus(userId)
-        dispatch(setStatus(data))
+        const res = await profileAPI.getStatus(userId)
+        dispatch(setStatus(res.data))
     }
 
 export const updateUserStatus = (status: string): AppThunkType =>
     async dispatch => {
-        const data = await profileAPI.updateStatus(status)
-        if (data.resultCode === 0) {
+        const res = await profileAPI.updateStatus(status)
+        if (res.data.resultCode === 0) {
             dispatch(setStatus(status))
         }
     }

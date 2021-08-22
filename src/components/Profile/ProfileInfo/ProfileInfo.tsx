@@ -1,12 +1,12 @@
-import React from 'react'
+import React, {FC} from 'react'
 import s from './ProfileInfo.module.css'
 import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
 
 
-export function ProfileInfo(props: PropsType) {
-    if (!props.profile) {
+export const ProfileInfo: FC<PropsType> = ({profile, status, updateUserStatus}) => {
+    if (!profile) {
         return <Preloader/>
     }
     return (
@@ -18,10 +18,10 @@ export function ProfileInfo(props: PropsType) {
             </div>
             <div className={s.descriptionBlock}>
                 <img
-                    src={props.profile.photos.large} alt={''}/>
+                    src={profile.photos.large} alt={''}/>
                 <ProfileStatusWithHooks
-                    status={props.status}
-                    updateUserStatus={props.updateUserStatus}
+                    status={status}
+                    updateUserStatus={updateUserStatus}
                 />
             </div>
         </div>

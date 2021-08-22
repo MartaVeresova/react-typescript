@@ -1,8 +1,7 @@
-import React, {ChangeEvent} from 'react'
+import React, {ChangeEvent, Component} from 'react'
 
 
-
-class ProfileStatus extends React.Component<PropsType> {
+class ProfileStatus extends Component<PropsType> {
 
     state = {
         editMode: false,

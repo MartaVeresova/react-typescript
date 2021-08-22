@@ -1,7 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 
 
-export const ProfileStatusWithHooks = ({status, updateUserStatus}: PropsType) => {
+export const ProfileStatusWithHooks: FC<PropsType> = ({status, updateUserStatus}) => {
 
     const [editMode, setEditMode] = useState(false)
     const [statusValue, setStatusValue] = useState(status)

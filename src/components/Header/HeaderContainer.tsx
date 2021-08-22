@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Header} from './Header';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/store';
@@ -19,7 +19,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 })
 
 
-class HeaderContainer extends React.Component<HeaderPropsType> {
+class HeaderContainer extends Component<HeaderPropsType> {
     render() {
         return (
             <Header {...this.props}/>

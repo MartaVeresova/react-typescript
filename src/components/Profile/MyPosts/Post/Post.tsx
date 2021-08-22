@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 import s from './Post.module.css'
 
 type PropsType = {
@@ -6,13 +6,13 @@ type PropsType = {
     likesCount: number
 }
 
-export function Post(props: PropsType) {
+export const Post: FC<PropsType> = ({message, likesCount}) => {
     return (
         <div className={s.item}>
             <img src="https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg" alt={''}/>
-            {props.message}
+            {message}
             <div>
-                <span>{props.likesCount}</span>
+                <span>{likesCount}</span>
             </div>
         </div>
     )

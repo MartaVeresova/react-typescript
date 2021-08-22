@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './Music.module.css'
 
 
-export function Music() {
+export const Music: FC = () => {
     return (
         <div className={s.music}>
             Music

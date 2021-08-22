@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 import {Field, InjectedFormProps, reduxForm} from 'redux-form';
 import {Input} from '../common/formsControls/FormsControls';
 import {requiredField} from '../../utils/validators/validators';
@@ -9,11 +9,14 @@ import {Redirect} from 'react-router-dom';
 import s from '../common/formsControls/FormsControls.module.css'
 
 
-const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) => {
+const Login: FC<MapStateToPropsType & MapDispatchToPropsType> = props => {
+
+    const {login, isAuth, captcha, children} = props
+
     const onSubmit = (formData: FormDataType) => {
-        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
+        login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
-    if (props.isAuth) {
+    if (isAuth) {
         return <Redirect to={'/profile'}/>
     }
     return (
@@ -25,7 +28,8 @@ const Login: React.FC<MapStateToPropsType & MapDispatchToPropsType> = (props) =>
 }
 
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+const LoginForm: FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
+
     return (
         <form onSubmit={handleSubmit}>
             <div>
