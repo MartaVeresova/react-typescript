@@ -1,6 +1,7 @@
 import {ResponseStatuses, usersAPI} from '../api/api';
 import {AppThunkType} from './store';
 import {Dispatch} from 'redux';
+import {updateObjectInArray} from '../utils/helpers/objectHelpers';
 
 
 const initialState = {
@@ -20,14 +21,14 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case 'usersPage/FOLLOW':
             return {
                 ...state,
-                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
-                users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
+                users: updateObjectInArray(state.users, action.userId, true)
+                // users: state.users.map(u => u.id === action.userId ? {...u, followed: true} : u)
             }
         case 'usersPage/UNFOLLOW':
             return {
                 ...state,
-                // users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
-                users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
+                users: updateObjectInArray(state.users, action.userId, false)
+                // users: state.users.map(u => u.id === action.userId ? {...u, followed: false} : u)
             }
         case 'usersPage/SET-USERS':
             return {

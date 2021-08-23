@@ -1,5 +1,5 @@
 import {UsersType} from '../../redux/users-reducer';
 
-// export const updateObjectInArray = (items: Array<UsersType>, itemId: string, objPropName: string, newObjProps: any) => {
-//     return items.map(u => u[objPropName] === itemId ? {...u, ...newObjProps} : u)
-// }
+export const updateObjectInArray = (items: Array<UsersType>, itemId: string,  newObjProps: boolean) => {
+    return items.map(u => u.id === itemId ? {...u, followed: newObjProps} : u)
+}
