@@ -6,7 +6,7 @@ import {updateObjectInArray} from '../utils/helpers/objectHelpers';
 
 const initialState = {
     users: [] as Array<UsersType>,
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,

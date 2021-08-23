@@ -13,18 +13,19 @@ export const Users: FC<UsersPropsType> = (props) => {
             <Pagination currentPage={currentPage}
                         onPageChanged={onPageChanged}
                         pageSize={pageSize}
-                        totalUsersCount={totalUsersCount}/>
-            <div>
-                {
-                    users.map(user => <User key={user.id}
-                                            user={user}
-                                            followingInProgress={followingInProgress}
-                                            follow={follow}
-                                            unfollow={unfollow}/>)
-                }
-            </div>
-        </div>
-    )
+                        totalItemsCount={totalUsersCount}
+                        portionSize={10}/>
+    <div>
+        {
+            users.map(user => <User key={user.id}
+                                    user={user}
+                                    followingInProgress={followingInProgress}
+                                    follow={follow}
+                                    unfollow={unfollow}/>)
+        }
+    </div>
+</div>
+)
 }
 
 
