@@ -5,9 +5,9 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
 import {BrowserRouter, Route, withRouter} from 'react-router-dom'
-import {DialogsContainer} from './components/Dialogs/DialogsContainer';
+// import {DialogsContainer} from './components/Dialogs/DialogsContainer';
+// import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
 import {connect, Provider} from 'react-redux';
@@ -15,6 +15,13 @@ import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer';
 import {AppStateType, store} from './redux/store';
 import {Preloader} from './components/common/Preloader/Preloader';
+import {withSuspense} from './hoc/withSuspense';
+
+
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer')
+    .then(({ DialogsContainer }) => ({ default: DialogsContainer })),
+);
 
 
 class App extends Component<AppPropsType> {
@@ -32,9 +39,9 @@ class App extends Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={s.appWrapperContent}>
-                    <Route exact path="/profile/:userId?" render={() => <ProfileContainer/>}/>
-                    <Route exact path="/dialogs" render={() => <DialogsContainer/>}/>
-                    <Route exact path="/users" render={() => <UsersContainer/>}/>
+                    <Route exact path="/profile/:userId?" render={() => withSuspense(<ProfileContainer/>)}/>
+                    <Route exact path="/dialogs" render={() => withSuspense(<DialogsContainer/>)}/>
+                    <Route exact path="/users" render={() => withSuspense(<UsersContainer/>)}/>
                     <Route exact path="/news" render={() => <News/>}/>
                     <Route exact path="/music" render={() => <Music/>}/>
                     <Route exact path="/settings" render={() => <Settings/>}/>
@@ -65,7 +72,7 @@ const AppContainer = compose<ComponentType>(
 
 
 export const SamuraiJSApp = () => {
-   return <React.StrictMode>
+    return <React.StrictMode>
         <BrowserRouter>
             <Provider store={store}>
                 <AppContainer/>
