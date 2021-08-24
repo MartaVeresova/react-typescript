@@ -1,8 +1,8 @@
 {
-  "name": "my-app",
+  "name": "social_network",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://MartaVeresova.github.io/react-typescript",
+  "homepage": "https://MartaVeresova.github.io/social_network",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
