@@ -44,6 +44,14 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
                     ...state.postsData.filter(p => p.id !== action.postId)
                 ],
             }
+        case 'profilePage/SAVE-PHOTO-SUCCESS':
+            if (state.profile) {
+                return {
+                    ...state,
+                    profile: {...state.profile, photos: action.photos}
+                }
+            } else return state
+
         default:
             return state
     }
@@ -61,6 +69,9 @@ export const setStatus = (status: string) =>
 
 export const removePost = (postId: string) =>
     ({type: 'profilePage/REMOVE-POST', postId} as const)
+
+export const savePhotoSuccess = (photos: {small: string, large: string}) =>
+    ({type: 'profilePage/SAVE-PHOTO-SUCCESS', photos} as const)
 
 
 //thunks
@@ -84,6 +95,13 @@ export const updateUserStatus = (status: string): AppThunkType =>
         }
     }
 
+export const savePhoto = (photo: File): AppThunkType =>
+    async dispatch => {
+        const res = await profileAPI.savePhoto(photo)
+        if (res.data.resultCode === 0) {
+            dispatch(savePhotoSuccess(res.data.data.photos))
+        }
+    }
 
 //types
 export type ProfileType = {
@@ -103,8 +121,8 @@ export type ProfileType = {
         mainLink: string
     }
     photos: {
-        small: string
-        large: string
+        small: string | undefined
+        large: string | undefined
     }
 }
 export type PostType = {
@@ -117,9 +135,11 @@ export type AddPostActionType = ReturnType<typeof addPost>
 export type SetUserProfileActionType = ReturnType<typeof setUserProfile>
 export type SetStatusActionType = ReturnType<typeof setStatus>
 export type RemovePostActionType = ReturnType<typeof removePost>
+export type SavePhotoSuccessActionType = ReturnType<typeof savePhotoSuccess>
 
 export type ProfileActionsType =
     | AddPostActionType
     | SetUserProfileActionType
     | SetStatusActionType
     | RemovePostActionType
+    | SavePhotoSuccessActionType

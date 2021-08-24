@@ -1,14 +1,24 @@
-import React, {FC} from 'react'
+import React, {ChangeEvent, FC} from 'react'
 import s from './ProfileInfo.module.css'
 import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import {ProfileStatusWithHooks} from './ProfileStatusWithHooks';
+import userPhoto from './../../../assets/images/user.png'
 
 
-export const ProfileInfo: FC<PropsType> = ({profile, status, updateUserStatus}) => {
+export const ProfileInfo: FC<PropsType> = ({profile, status, updateUserStatus, isOwner, savePhoto}) => {
+
     if (!profile) {
         return <Preloader/>
     }
+
+    const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const photo = e.target.files[0]
+            savePhoto(photo)
+        }
+    }
+
     return (
         <div className={s.profileInfo}>
             <div>
@@ -17,8 +27,8 @@ export const ProfileInfo: FC<PropsType> = ({profile, status, updateUserStatus}) 
                     alt={''}/>
             </div>
             <div className={s.descriptionBlock}>
-                <img
-                    src={profile.photos.large} alt={''}/>
+                <img src={profile.photos.large || userPhoto} alt={''} className={s.mainPhoto}/>
+                {isOwner && <input type={'file'} onChange={onMainPhotoSelected}/>}
                 <ProfileStatusWithHooks
                     status={status}
                     updateUserStatus={updateUserStatus}
@@ -34,5 +44,7 @@ type PropsType = {
     profile: ProfileType | null
     status: string
     updateUserStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (photo: File) => void
 }
 
