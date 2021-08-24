@@ -4,9 +4,7 @@ import {Navbar} from './components/Navbar/Navbar'
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {BrowserRouter, Route, withRouter} from 'react-router-dom'
-// import {DialogsContainer} from './components/Dialogs/DialogsContainer';
-// import ProfileContainer from './components/Profile/ProfileContainer';
+import {HashRouter, Route, withRouter} from 'react-router-dom'
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -73,10 +71,10 @@ const AppContainer = compose<ComponentType>(
 
 export const SamuraiJSApp = () => {
     return <React.StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>
 }
