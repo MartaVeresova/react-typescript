@@ -3,7 +3,14 @@ import s from './Profile.module.css'
 import {Profile} from './Profile';
 import {connect} from 'react-redux';
 import {AppStateType} from '../../redux/store';
-import {getUserProfile, getUserStatus, ProfileType, savePhoto, updateUserStatus,} from '../../redux/profile-reducer';
+import {
+    getUserProfile,
+    getUserStatus,
+    ProfileType,
+    savePhoto,
+    saveProfile,
+    updateUserStatus,
+} from '../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
@@ -13,15 +20,17 @@ class ProfileContainer extends Component<PropsType> {
 
     refreshProfile() {
         const {match, authorizedUserId, history, getUserProfile, getUserStatus} = this.props
-        let userId = match.params.userId
+        let userId: number | null = Number(match.params.userId)
         if (!userId) {
-            userId = JSON.stringify(authorizedUserId)
+            userId = authorizedUserId
             if (!userId) {
                 history.push('/login')
             }
         }
-        getUserProfile(userId)
-        getUserStatus(userId)
+        if (userId) {
+            getUserProfile(userId)
+            getUserStatus(userId)
+        }
     }
 
     componentDidMount() {
@@ -43,6 +52,7 @@ class ProfileContainer extends Component<PropsType> {
                     updateUserStatus={this.props.updateUserStatus}
                     isOwner={!this.props.match.params.userId}
                     savePhoto={this.props.savePhoto}
+                    saveProfile={this.props.saveProfile}
                 />
             </div>
         )
@@ -58,7 +68,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {getUserProfile, getUserStatus, updateUserStatus, savePhoto}),
+    connect(mapStateToProps, {getUserProfile, getUserStatus, updateUserStatus, savePhoto, saveProfile}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
@@ -75,10 +85,11 @@ type MapStateToPropsType = {
     isAuth: boolean
 }
 type MapDispatchToPropsType = {
-    getUserProfile: (userId: string) => void
-    getUserStatus: (userId: string) => void
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
     savePhoto: (photo: File) => void
+    saveProfile: (formData: ProfileType) => Promise<any>
 }
 export type ProfilePropsType = MapStateToPropsType & MapDispatchToPropsType
 type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType

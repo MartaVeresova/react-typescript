@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ProfileType} from '../redux/profile-reducer';
+import {PhotosProfileType, ProfileType} from '../redux/profile-reducer';
 import {UsersType} from '../redux/users-reducer';
 
 
@@ -16,32 +16,35 @@ export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instance.get<GetUsersType>(`users?page=${currentPage}&count=${pageSize}`)
     },
-    followUsers(userId: string) {
+    followUsers(userId: number) {
         return instance.post<CommonResponseType>(`follow/${userId}`)
     },
-    unfollowUsers(userId: string) {
+    unfollowUsers(userId: number) {
         return instance.delete<CommonResponseType>(`follow/${userId}`)
     },
 }
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: number) {
         return instance.get<ProfileType>(`profile/${userId}`)
     },
-    getStatus(userId: string) {
-        return instance.get<string>(`/profile/status/${userId}`)
+    getStatus(userId: number) {
+        return instance.get<string>(`profile/status/${userId}`)
     },
     updateStatus(status: string) {
-        return instance.put<CommonResponseType>(`/profile/status`, {status})
+        return instance.put<CommonResponseType>(`profile/status`, {status})
     },
     savePhoto(photoFile: File) {
         const formData = new FormData()
         formData.append('image', photoFile)
-        return instance.put(`profile/photo`, formData, {
+        return instance.put<CommonResponseType<{ photos: PhotosProfileType}>>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
-    }
+    },
+    saveProfile(profile: ProfileType) {
+        return instance.put<CommonResponseType>(`profile`, profile)
+    },
 }
 
 export const authAPI = {
@@ -49,7 +52,7 @@ export const authAPI = {
         return instance.get<CommonResponseType<GetAuthUserData>>(`auth/me`)
     },
     login(email: string, password: string, rememberMe: boolean = false, captcha: boolean) {
-        return instance.post<CommonResponseType<{ userId: string }>>(`/auth/login`, {
+        return instance.post<CommonResponseType<{ userId: number }>>(`/auth/login`, {
             email,
             password,
             rememberMe,

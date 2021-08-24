@@ -36,8 +36,8 @@ type UsersPropsType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     users: Array<UsersType>
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    followingInProgress: string[]
-    toggleIsFollowingProgress: (isFetching: boolean, userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    followingInProgress: number[]
+    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
 }

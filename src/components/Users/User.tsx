@@ -52,7 +52,7 @@ export const User: FC<UserPropsType> = (props) => {
 //types
 type UserPropsType = {
     user: UsersType
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    followingInProgress: string[]
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
+    followingInProgress: number[]
 }

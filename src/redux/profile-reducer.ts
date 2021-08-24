@@ -1,6 +1,7 @@
 import {v1} from 'uuid';
-import {AppThunkType} from './store';
+import {AppStateType, AppThunkType} from './store';
 import {profileAPI} from '../api/api';
+import {stopSubmit} from 'redux-form';
 
 
 const initialState = {
@@ -70,18 +71,18 @@ export const setStatus = (status: string) =>
 export const removePost = (postId: string) =>
     ({type: 'profilePage/REMOVE-POST', postId} as const)
 
-export const savePhotoSuccess = (photos: {small: string, large: string}) =>
+export const savePhotoSuccess = (photos: { small: string, large: string }) =>
     ({type: 'profilePage/SAVE-PHOTO-SUCCESS', photos} as const)
 
 
 //thunks
-export const getUserProfile = (userId: string): AppThunkType =>
+export const getUserProfile = (userId: number): AppThunkType =>
     async dispatch => {
         const res = await profileAPI.getProfile(userId)
         dispatch(setUserProfile(res.data))
     }
 
-export const getUserStatus = (userId: string): AppThunkType =>
+export const getUserStatus = (userId: number): AppThunkType =>
     async dispatch => {
         const res = await profileAPI.getStatus(userId)
         dispatch(setStatus(res.data))
@@ -103,6 +104,22 @@ export const savePhoto = (photo: File): AppThunkType =>
         }
     }
 
+export const saveProfile = (profile: ProfileType): AppThunkType =>
+    async (dispatch, getState: () => AppStateType) => {
+        const userId = getState().auth.userId
+        const res = await profileAPI.saveProfile(profile)
+        if (res.data.resultCode === 0) {
+            if (userId !== null) {
+                dispatch(getUserProfile(userId))
+            } else {
+                throw new Error('userId can\'t be null')
+            }
+        } else {
+            dispatch(stopSubmit('edit-profile', {_error: res.data.messages[0]}))
+            return Promise.reject(res.data.messages[0])
+        }
+    }
+
 //types
 export type ProfileType = {
     aboutMe: string
@@ -110,20 +127,22 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     userId: number
-    contacts: {
-        facebook: string
-        website: string
-        vk: string
-        twitter: string
-        instagram: string
-        youtube: string
-        github: string
-        mainLink: string
-    }
-    photos: {
-        small: string | undefined
-        large: string | undefined
-    }
+    contacts: ContactsProfileType
+    photos: PhotosProfileType
+}
+export type ContactsProfileType = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+export type PhotosProfileType = {
+    small: string
+    large: string
 }
 export type PostType = {
     id: string

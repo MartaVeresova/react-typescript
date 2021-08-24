@@ -5,7 +5,7 @@ import {MyPostsContainer} from './MyPosts/MyPostsContainer';
 import {ProfileType} from '../../redux/profile-reducer';
 
 
-export const Profile: FC<PropsType> = ({profile, updateUserStatus, status, isOwner, savePhoto}) => {
+export const Profile: FC<PropsType> = ({profile, updateUserStatus, status, isOwner, savePhoto, saveProfile}) => {
     return (
         <div className={s.profile}>
             <ProfileInfo
@@ -14,6 +14,7 @@ export const Profile: FC<PropsType> = ({profile, updateUserStatus, status, isOwn
                 updateUserStatus={updateUserStatus}
                 isOwner={isOwner}
                 savePhoto={savePhoto}
+                saveProfile={saveProfile}
             />
             <MyPostsContainer/>
         </div>
@@ -28,5 +29,6 @@ type PropsType = {
     updateUserStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (photo: File) => void
+    saveProfile: (formData: ProfileType) => Promise<any>
 }
 
