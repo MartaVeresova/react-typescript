@@ -65,7 +65,6 @@ const LoginForm: FC<InjectedFormProps<FormDataType, LoginFormPropsType> & LoginF
             {captcha &&
             <Field
                 placeholder={'Symbols from image'}
-                // type="checkbox"
                 name="captcha"
                 validate={[requiredField]}
                 component={Input}

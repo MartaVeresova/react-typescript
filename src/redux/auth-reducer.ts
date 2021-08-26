@@ -36,8 +36,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, captcha: string | null, isAuth: boolean) =>
     ({type: 'auth/SET-USER-DATA', payload: {userId, email, login, captcha, isAuth}} as const)
 
-export const getCaptchaUrlSuccess = (captchaUrl: string) =>
-    ({type: 'auth/GET-CAPTCHA-URL-SUCCESS', payload: {captchaUrl}} as const)
+export const getCaptchaUrlSuccess = (captcha: string) =>
+    ({type: 'auth/GET-CAPTCHA-URL-SUCCESS', payload: {captcha}} as const)
 
 
 //thunks
@@ -72,8 +72,8 @@ export const logout = (): AppThunkType => async dispatch => {
 
 export const getCaptchaUrl = (): AppThunkType => async dispatch => {
     const res = await securityAPI.getCaptchaUrl()
-    const captchaUrl = res.data.url
-    dispatch(getCaptchaUrlSuccess(captchaUrl))
+    const captcha = res.data.url
+    dispatch(getCaptchaUrlSuccess(captcha))
 }
 
 
