@@ -7,13 +7,13 @@ beforeEach(() => {
         userId: 1,
         email: '',
         login: '',
-        captcha: false,
+        captcha: '',
         isAuth: false,
     }
 });
 
 test('initialized should be set', () => {
-    const action = setAuthUserData(2, 'test@gmail.com', 'testLogin', false, true);
+    const action = setAuthUserData(2, 'test@gmail.com', 'testLogin', null, true);
 
     const endState = authReducer(startState, action)
 
