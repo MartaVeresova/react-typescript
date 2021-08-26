@@ -4,7 +4,7 @@ import {Navbar} from './components/Navbar/Navbar'
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {HashRouter, Route, withRouter} from 'react-router-dom'
+import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom'
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -14,11 +14,12 @@ import {initializeApp} from './redux/app-reducer';
 import {AppStateType, store} from './redux/store';
 import {Preloader} from './components/common/Preloader/Preloader';
 import {withSuspense} from './hoc/withSuspense';
+import {Error404} from './components/common/error404/Error404';
 
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer')
-    .then(({ DialogsContainer }) => ({ default: DialogsContainer })),
+    .then(({DialogsContainer}) => ({default: DialogsContainer})),
 );
 
 
@@ -37,13 +38,18 @@ class App extends Component<AppPropsType> {
                 <HeaderContainer/>
                 <Navbar/>
                 <div className={s.appWrapperContent}>
-                    <Route exact path="/profile/:userId?" render={() => withSuspense(<ProfileContainer/>)}/>
-                    <Route exact path="/dialogs" render={() => withSuspense(<DialogsContainer/>)}/>
-                    <Route exact path="/users" render={() => withSuspense(<UsersContainer/>)}/>
-                    <Route exact path="/news" render={() => <News/>}/>
-                    <Route exact path="/music" render={() => <Music/>}/>
-                    <Route exact path="/settings" render={() => <Settings/>}/>
-                    <Route exact path="/login" render={() => <Login/>}/>
+                    <Switch>
+                        <Route exact path="/" render={() => <Redirect to='/profile' />}/>
+                        <Route path="/profile/:userId?" render={() => withSuspense(<ProfileContainer/>)}/>
+                        <Route path="/dialogs" render={() => withSuspense(<DialogsContainer/>)}/>
+                        <Route path="/users" render={() => withSuspense(<UsersContainer/>)}/>
+                        <Route path="/news" render={() => <News/>}/>
+                        <Route path="/music" render={() => <Music/>}/>
+                        <Route path="/settings" render={() => <Settings/>}/>
+                        <Route path="/login" render={() => <Login/>}/>
+                        <Route path="/404" render={() => <Error404/>}/>
+                        <Redirect from={'*'} to={'/404'}/>
+                    </Switch>
                 </div>
             </div>
         )
