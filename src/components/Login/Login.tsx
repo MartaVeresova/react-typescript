@@ -39,7 +39,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType, LoginFormPropsType> & LoginF
         <form onSubmit={handleSubmit}>
             <div>
                 <Field
-                    placeholder={'Email'}
+                    placeholder={'Email: free@samuraijs.com'}
                     name={'email'}
                     component={Input}
                     validate={[requiredField]}
@@ -47,7 +47,7 @@ const LoginForm: FC<InjectedFormProps<FormDataType, LoginFormPropsType> & LoginF
             </div>
             <div>
                 <Field
-                    placeholder={'Password'}
+                    placeholder={'Password: free'}
                     name={'password'}
                     component={Input}
                     validate={[requiredField]}
